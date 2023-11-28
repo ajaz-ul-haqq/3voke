@@ -91,10 +91,12 @@ class BaseModel {
     protected function execute($sql = null)
     {
         $query = $sql ?: $this->baseQuery();
-//
-//        $fp = fopen('query.log', 'a+');
-//        fwrite($fp, PHP_EOL.$query);
-//        fclose($fp);
+
+        if(in_array($this->operation, ['INSERT', 'UPDATE'])){
+            $fp = fopen('query.log', 'a+');
+            fwrite($fp, '['.date('Y-m-d H:i:s').'] ('.$query.')'.PHP_EOL);
+            fclose($fp);
+        }
 
         $result = $this->conn->query($query);
 
@@ -192,7 +194,7 @@ class BaseModel {
 
     private function getBaseQueryForModel()
     {
-        return $this->operation.' '.$this->columns.' FROM '.$this->table;
+        return $this->operation.$this->columns.' FROM '.$this->table;
     }
 
     private function appendSortingLimitOffset($query)
