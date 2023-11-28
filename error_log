@@ -1,0 +1,50 @@
+[28-Nov-2023 09:46:37 UTC] PHP Warning:  Undefined array key "user" in /home/vokeonli/public_html/index.php on line 5
+[28-Nov-2023 09:46:37 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/vokeonli/public_html/index.php on line 5
+[28-Nov-2023 09:46:40 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/vokeonli/public_html/App/Models/BaseModel.php:99
+Stack trace:
+#0 /home/vokeonli/public_html/App/Models/Model.php(143): App\Models\BaseModel->execute()
+#1 /home/vokeonli/public_html/App/Models/Model.php(94): App\Models\Model->execute()
+#2 /home/vokeonli/public_html/App/Models/Model.php(14): App\Models\Model->first()
+#3 /home/vokeonli/public_html/App/Models/Model.php(44): App\Models\Model->value()
+#4 /home/vokeonli/public_html/postLogin.php(49): App\Models\Model->count()
+#5 /home/vokeonli/public_html/postLogin.php(24): isValid()
+#6 {main}
+  thrown in /home/vokeonli/public_html/App/Models/BaseModel.php on line 99
+[28-Nov-2023 09:46:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/vokeonli/public_html/App/Models/BaseModel.php:99
+Stack trace:
+#0 /home/vokeonli/public_html/App/Models/Model.php(143): App\Models\BaseModel->execute()
+#1 /home/vokeonli/public_html/App/Models/Model.php(94): App\Models\Model->execute()
+#2 /home/vokeonli/public_html/App/Models/Model.php(14): App\Models\Model->first()
+#3 /home/vokeonli/public_html/App/Models/Model.php(44): App\Models\Model->value()
+#4 /home/vokeonli/public_html/postLogin.php(49): App\Models\Model->count()
+#5 /home/vokeonli/public_html/postLogin.php(24): isValid()
+#6 {main}
+  thrown in /home/vokeonli/public_html/App/Models/BaseModel.php on line 99
+[28-Nov-2023 09:52:05 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'system WHERE config = "minimum_withdrawl"' at line 1 in /home/vokeonli/public_html/App/Models/BaseModel.php:99
+Stack trace:
+#0 /home/vokeonli/public_html/App/Models/BaseModel.php(99): mysqli->query()
+#1 /home/vokeonli/public_html/App/Models/Model.php(143): App\Models\BaseModel->execute()
+#2 /home/vokeonli/public_html/App/Models/Model.php(94): App\Models\Model->execute()
+#3 /home/vokeonli/public_html/App/Models/Model.php(14): App\Models\Model->first()
+#4 /home/vokeonli/public_html/helpers.php(60): App\Models\Model->value()
+#5 /home/vokeonli/public_html/withdrawl.php(58): minimumWithdrawl()
+#6 {main}
+  thrown in /home/vokeonli/public_html/App/Models/BaseModel.php on line 99
+[28-Nov-2023 09:52:07 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'system WHERE config = "minimum_withdrawl"' at line 1 in /home/vokeonli/public_html/App/Models/BaseModel.php:99
+Stack trace:
+#0 /home/vokeonli/public_html/App/Models/BaseModel.php(99): mysqli->query()
+#1 /home/vokeonli/public_html/App/Models/Model.php(143): App\Models\BaseModel->execute()
+#2 /home/vokeonli/public_html/App/Models/Model.php(94): App\Models\Model->execute()
+#3 /home/vokeonli/public_html/App/Models/Model.php(14): App\Models\Model->first()
+#4 /home/vokeonli/public_html/helpers.php(60): App\Models\Model->value()
+#5 /home/vokeonli/public_html/withdrawl.php(58): minimumWithdrawl()
+#6 {main}
+  thrown in /home/vokeonli/public_html/App/Models/BaseModel.php on line 99
+[28-Nov-2023 10:19:14 UTC] PHP Warning:  Undefined array key "user" in /home/vokeonli/public_html/index.php on line 5
+[28-Nov-2023 10:19:14 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/vokeonli/public_html/index.php on line 5
+[28-Nov-2023 10:20:24 UTC] PHP Warning:  Undefined array key "user" in /home/vokeonli/public_html/promotion.php on line 11
+[28-Nov-2023 10:20:24 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/vokeonli/public_html/promotion.php on line 11
+[28-Nov-2023 10:20:24 UTC] PHP Warning:  Undefined array key "user" in /home/vokeonli/public_html/promotion.php on line 99
+[28-Nov-2023 10:20:24 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/vokeonli/public_html/promotion.php on line 99
+[28-Nov-2023 10:20:24 UTC] PHP Deprecated:  strlen(): Passing null to parameter #1 ($string) of type string is deprecated in /home/vokeonli/public_html/helpers.php on line 139
+[28-Nov-2023 10:20:24 UTC] PHP Deprecated:  str_pad(): Passing null to parameter #1 ($string) of type string is deprecated in /home/vokeonli/public_html/helpers.php on line 139
