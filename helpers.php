@@ -149,3 +149,8 @@ function terminateSession(): void
 {
     session_abort();
 }
+
+
+function test(){
+    return true;
+}
