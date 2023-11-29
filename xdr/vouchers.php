@@ -10,10 +10,6 @@ require_once '../autoload.php';
 
 include('includes/header.php');
 
-if( ! isset($_SESSION['admin'])) {
-    header('Location:login.php');
-}
-
 $limit = 10;
 $page = 1;
 

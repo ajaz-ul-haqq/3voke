@@ -10,10 +10,6 @@ require_once '../autoload.php';
 
 include('includes/header.php');
 
-if( ! isset($_SESSION['admin'])) {
-    header('Location:login.php');
-}
-
 $withdrawals = model('withdrawls');
 
 $limit = 10;

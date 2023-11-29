@@ -1,8 +1,15 @@
 <?php
 
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once '../autoload.php';
-enableDebugging();
-redirectIfNotLoggedIn();
+
+session_start();
+if(!isset($_SESSION['admin'])){
+    redirectTo('login.php');
+}
 
 ?>
 

@@ -10,7 +10,7 @@ $breadCrumbs = ['home', 'manage', 'strategies'];
 
 $activePages = ['Manage', 'Strategies'];
 
-$strategies = (new \App\Models\Model('strategies'))->get();
+$strategies = model('strategies')->get();
 
 include('includes/navbar.php');
 include('includes/sidebar.php');
