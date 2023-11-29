@@ -9,11 +9,15 @@ class AdminApiHandler {
     {
         $id = @$_SESSION['admin']['id'];
         model('vouchers')->insert([
-            'value' => self::generateVoucher(),
+            'value' => $voucher = self::generateVoucher(),
             'amount' => $amount,
             'active' => 1,
             'created_by' => $id
         ]);
+
+        $context = 'Created a voucher of <b>'.$amount.'</b> i.e. <b>'. $voucher.'</b>';
+
+        createLog('created_voucher', $context);
 
         self::successResponse('added successfully');
     }
@@ -41,6 +45,10 @@ class AdminApiHandler {
             ->where('number', $request->get('number'))
             ->update(['status' => (int)!$oldOne]);
 
+        $context = ( $oldOne ? 'Disabled ' : 'Enabled ' ). '<b>'. $request->get('number') .'</b> in <b>'.$request->get('category').'</b> for game <b>'.currentGameId().'</b>.';
+
+        createLog('customizeNumber', $context);
+
         self::successResponse('done successfully');
     }
 
@@ -56,6 +64,13 @@ class AdminApiHandler {
         (new Model('strategies'))
             ->where('id', $request->get('s_id'))
             ->update(['active' => (int)!$oldOne]);
+
+        $strategyName = model('strategies')
+            ->where('id', $request->get('s_id'))->value('name');
+
+        $context =( $oldOne ? 'Disabled ' : 'Enabled ' ).'<b>'.$strategyName .'</b> for system.';
+
+        createLog('customizeStrategy', $context);
 
         self::successResponse('done successfully');
     }
@@ -191,12 +206,16 @@ class AdminApiHandler {
         $id = $request->get('withdrawlId');
 
         model('withdrawls')->where('id', $id)->update(['status' => $action]);
+        $withdrawl = model('withdrawls')->find($id);
 
         if ($action == 'REJECTED') {
-            $withdrawl = model('withdrawls')->find($id);
             $old = model()->find($withdrawl['user_id'])['balance'];
             model()->where('id', $withdrawl['user_id'])->update(['balance' => $old + $withdrawl['amount']]);
         }
+
+        $context = '<b>'.ucfirst($action = strtolower($action)).'</b> withdrawal of <b>'.$withdrawl['amount'].'</b> for user <b>'. \model()->where('id', $withdrawl['user_id'])->value('phone').'</b>';
+
+        createLog($action.'_withdrawal', $context);
 
         self::successResponse($action.' Successfully');
     }

@@ -58,7 +58,7 @@ function minimumDeposit(): int
 
 function minimumWithdrawl(): int
 {
-    return 1000;
+    return 500;
     return (int) \model('system')->where('config', 'minimum_withdrawl')->value('value');
 }
 
@@ -151,6 +151,13 @@ function terminateSession(): void
 }
 
 
-function test(){
-    return true;
+function createLog($event, $context, $to = '' , $from = '')
+{
+    model('logs')->insert([
+        'user_id' => @$_SESSION['admin']['id'],
+        'action' => $event,
+        'final_value' => $to,
+        'initial_value' => $from,
+        'context' => $context
+    ]);
 }

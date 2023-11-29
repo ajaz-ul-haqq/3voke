@@ -19,20 +19,27 @@ if( ! isset($_REQUEST['id'])) {
 $id = $_REQUEST['id'];
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $user = new \App\Models\Model('users');
+  $user = model();
   $email = $_POST['email'];
   $name = $_POST['name'];
   $phone = $_POST['phone'];
   $status = $_POST['status'];
   $upiId = $_POST['upi'];
 
-  $user->where('id', $id)->update([
-    'name' => $name,
-    'email' => $email,
-    'phone' => $phone,
-    'active' => $status,
-    'upi' => $upiId
-  ]);
+  $user = model()->find($id);
+
+  foreach ($user as $item => $value) {
+      if(isset($_POST[$item]) && $_POST[$item] != $value){
+          $valuesToUpdate[$item] = $_POST[$item];
+      }
+  }
+
+  if(!empty($valuesToUpdate)) {
+      model()->where('id', $id)->update($valuesToUpdate);
+      foreach ($valuesToUpdate as $key => $value) {
+          createLog('user_updated', 'Updated user <b>'.$user['phone'].'</b>, Set <b>'.$key.'</b> as '.$value.' from <b>'.$user[$key].'</b>');
+      }
+  }
 
   $successMessage = '<div class="row">
         <div class="alert alert-success div-s alert-dismissible col-md-10 ml-3">

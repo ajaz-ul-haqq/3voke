@@ -39,6 +39,9 @@ $isActive = (bool) $admin['active'];
 
 include ('includes/navbar.php');
 include ('includes/sidebar.php');
+
+$logs = model('logs')->where('user_id', $loggedInUser['id'])->orderBy('id')->get();
+
 ?>
 
 <div class="content-wrapper">
@@ -53,9 +56,36 @@ include ('includes/sidebar.php');
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body p-0">
-                        <table class="table table-striped table-hover">
+                        <br>
+                        <div class="timeline ml-3">
+                            <!-- timeline time label -->
+                            <div class="time-label">
+                                <span class="bg-red"><?php echo date('j M, Y h:i A', strtotime('now')) ?></span>
+                            </div>
+                            <!-- /.timeline-label -->
 
-                        </table>
+                            <?php
+                            foreach ($logs as $log) {
+
+                                $class = match ($log['action']) {
+                                    'rejected_withdrawal' => 'fas fa-times-circle bg-red',
+                                    'approved_withdrawal' => 'fas fa-check-circle bg-success',
+                                    'user_updated' => 'fas fa-user-edit bg-primary',
+                                    'customizeNumber' => 'fas fa-wrench bg-dark',
+                                    'customizeStrategy' => 'fas fa-chess-rook bg-purple',
+                                    default => 'fas fa-crosshairs bg-info'
+                                };
+
+                                echo ' <div>
+                                <i class="'.$class.'"></i>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fas fa-clock"></i>'.date('j M, Y h:i:s A',strtotime($log['created_at'])).'</span>
+                                    <h3 class="timeline-header">'.$log['context'].'</h3>
+                                </div>
+                            </div>';
+                            }
+                            ?>
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>
