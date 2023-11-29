@@ -6,18 +6,11 @@ include('includes/header.php');
 
 $loggedInUser = $_SESSION['admin'];
 
-$isForAdmin = false;
-
-if (isset($_REQUEST['role']) && $_REQUEST['role'] == 'admin' ) {
-  $table = 'admins';
-  $isForAdmin = true;
-}
-
-$wrapperContext =  'List of ' . ($isForAdmin ? 'Admins' : 'Users');
+$wrapperContext =  'All Users';
 
 $breadCrumbs = ['home', 'users', 'list'];
 
-$users = model($table ?? 'users');
+$users = model();
 $baseUrl = 'users.php?';
 
 if(isset($_REQUEST['search'])) {
@@ -57,7 +50,7 @@ $nextPageUrl = ($page * $limit)  >= $total ? '': $baseUrl.'limit='.$limit.'&page
 
 $users = $users->select('*')->offset($limit * ($page - 1) )->limit($limit)->get();
 
-$activePages = ['User Directory', $isForAdmin ? 'All Admin' : 'All User'];
+$activePages = ['User Directory', 'All Users'];
 
 include('includes/navbar.php');
 include('includes/sidebar.php');
@@ -94,7 +87,7 @@ include('includes/sidebar.php');
                 <tbody>
                 <?php
                 foreach ($users as $user) {
-                    $href = "info.php?".($isForAdmin ? 'role=admin&' : '')."id=".$user['id'];
+                    $href = "info.php?id=".$user['id'];
                   $active = $user['active'] ? '<button class="btn btn-sm btn-primary"> Yes </button>' : '<button class="btn btn-sm btn-danger"> NO </button>';
                   $editAction = "<span><a href='".$href."'><button class='btn btn-sm btn-light btn-outline-dark'>  Info </button></a></span>";
                   echo "<tr>

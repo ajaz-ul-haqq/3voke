@@ -36,15 +36,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="users.php" class="nav-link <?php echo in_array('All User', $activePages) ? 'active' : '' ?>">
+                            <a href="users.php" class="nav-link <?php echo in_array('All Users', $activePages) ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p> All User </p>
+                                <p> All Users </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="users.php?role=admin" class="nav-link <?php echo in_array('All Admin', $activePages) ? 'active' : '' ?>">
+                            <a href="admins.php" class="nav-link <?php echo in_array('All Admins', $activePages) ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p> All Admin </p>
+                                <p> All Admins </p>
                             </a>
                         </li>
                     </ul>

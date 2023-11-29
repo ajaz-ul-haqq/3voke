@@ -2058,3 +2058,5 @@ SELECT  * FROM manual WHERE type = "parity" AND number = "9"[2023-11-29 00:23:58
 [2023-11-29 01:32:13] (UPDATE users SET `balance` = '301681' WHERE id = "1")
 [2023-11-29 01:32:18] (UPDATE withdrawls SET `status` = 'REJECTED' WHERE id = "31")
 [2023-11-29 01:32:18] (UPDATE users SET `balance` = '305216' WHERE id = "1")
+[2023-11-29 11:05:30] (UPDATE users SET `name` = 'redstat.me@gmail.com', `email` = 'redstat.me@gmail.com', `phone` = '8082172145', `active` = '1', `upi` = 'xyzabc123@paytm' WHERE id = "3")
+[2023-11-29 23:25:24] (UPDATE manual SET `status` = '1' WHERE type = "parity" AND number = "0")

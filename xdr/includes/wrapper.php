@@ -33,6 +33,7 @@ function getHrefForBreadCrumbs($key, $isLast): string
         'users' => '<a href="users.php">Users</a>',
         'payments' => 'Payments',
         'withdrawals' => '<a href="withdrawls.php">Withdrawals</a>',
+        'admin' => '<a href="admins.php">Admin</a>',
         default => ucfirst($key)
     };
 }
