@@ -2050,4 +2050,11 @@ SELECT  * FROM manual WHERE type = "parity" AND number = "7"
 SELECT  * FROM orders WHERE game_id = "20231118155" AND selection = "8"
 SELECT  * FROM manual WHERE type = "parity" AND number = "8"
 SELECT  * FROM orders WHERE game_id = "20231118155" AND selection = "9"
-SELECT  * FROM manual WHERE type = "parity" AND number = "9"
+SELECT  * FROM manual WHERE type = "parity" AND number = "9"[2023-11-29 00:23:58] (UPDATE manual SET `status` = '1' WHERE type = "sapre" AND number = "0")
+[2023-11-29 00:26:11] (UPDATE manual SET `status` = '0' WHERE type = "sapre" AND number = "0")
+[2023-11-29 00:56:25] (UPDATE manual SET `status` = '1' WHERE type = "parity" AND number = "0")
+[2023-11-29 00:56:27] (UPDATE manual SET `status` = '0' WHERE type = "parity" AND number = "0")
+[2023-11-29 01:32:13] (UPDATE withdrawls SET `status` = 'REJECTED' WHERE id = "37")
+[2023-11-29 01:32:13] (UPDATE users SET `balance` = '301681' WHERE id = "1")
+[2023-11-29 01:32:18] (UPDATE withdrawls SET `status` = 'REJECTED' WHERE id = "31")
+[2023-11-29 01:32:18] (UPDATE users SET `balance` = '305216' WHERE id = "1")

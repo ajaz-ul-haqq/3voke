@@ -128,21 +128,43 @@ class AdminApiHandler {
             if($i != 5) {
                 $amount = (new Model('orders'))->where('game_id', $gameId)->where('type', $category)->where('selection', $i)->sum('amount') * 8.55;
 
-                $result[$i] = self::getReturnsForNumbers($i, $red, $violet, $green, $amount);
+                $result1[$i] = self::getReturnsForNumbers($i, $red, $violet, $green, $amount);
             }
 
         }
 
-        $min = min($result);
-        $xeox = [array_search($min, $result)];
+        $min1 = min($result1);
 
-        foreach ( $result as $index => $value) {
-            if( $min == $value) {
-                $xeox[] = $index;
+        if ($red + $green > 0) {
+
+            $diff = max($red, $green) - min($red, $green);
+            $percentage = (int) (($diff) / ($average = (($red + $green) / 2)) * 100);
+
+            if ($percentage < 10) {
+                $zero = (new Model('orders'))->where('game_id', $gameId)->where('type', $category)->where('selection', 0)->sum('amount') * 8.55;
+                $five = (new Model('orders'))->where('game_id', $gameId)->where('type', $category)->where('selection', 5)->sum('amount') * 8.55;
+
+                $min2 = min($result2 = [
+                    0 => self::getReturnsForNumbers(0, $red, $violet, $green, $zero),
+                    5 => self::getReturnsForNumbers(5, $red, $violet, $green, $five)
+                ]);
+
+                $final = min($min1, $min2);
+
+                $result = ($final == $min1) ? $result1 : $result2;
             }
         }
 
-        return $xeox[rand(0,count($xeox)-1)];
+        $finalN = $final ?? $min1;
+        $finalR = $result ?? $result1;
+
+        foreach ( $finalR as $index => $value) {
+            if( $finalN == $value) {
+                $number[] = $index;
+            }
+        }
+
+        return $number[rand(0, count($number) - 1)];
     }
 
     public static function errorResponse($message, $code = 500): void
