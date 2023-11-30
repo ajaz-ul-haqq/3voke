@@ -40,7 +40,7 @@ $upi = $user['upi']
 
 <?php include 'loader.php' ?>
 <!-- App Header -->
-<div class="appHeader1" style="background-color: lightslategray !important">
+<div class="appHeader1" style="<?php echo systemConfig('appHeader')?>">
     <div class="left">
         <a href="#" onClick="goBack();" class="icon goBack">
             <i class="icon ion-md-arrow-back"></i>

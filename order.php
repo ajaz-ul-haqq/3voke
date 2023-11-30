@@ -25,7 +25,7 @@ include 'records.php';
             border-color: #fff !important;
         }
         .appContent3 {
-            background-color: lightslategray !important;
+            <?php echo systemConfig('appHeader')?>;
             border-color: #2196f3 !important;
             padding:12px;
             border-radius:3px;

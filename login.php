@@ -2,6 +2,8 @@
 ob_start();
 session_start();
 
+require_once 'autoload.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -13,12 +15,7 @@ if(isset($_SESSION['user'])){
 <!doctype html>
 <html lang="en">
 <head>
-    <?php include'head.php' ?>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="assets/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="description" content="Bitter Mobile Template">
-    <meta name="keywords" content="bootstrap, mobile template, bootstrap 4, mobile, html, responsive" />
+    <?php include 'head.php' ?>
 
     <style>
         .btn {
@@ -36,7 +33,7 @@ if(isset($_SESSION['user'])){
 <!-- * Page loading -->
 
 <!-- App Header -->
-<div class="appHeader1" style="background-color:lightslategrey !important">
+<div class="appHeader1" style="<?php echo systemConfig('appHeader')?>">
     <div class="left">
         <a href="javascript:void(0);" class="icon goBack">&nbsp;</a>
         <div class="pageTitle">Login</div>

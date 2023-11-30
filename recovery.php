@@ -1,5 +1,7 @@
 <?php
 
+require_once 'autoload.php';
+
 $needsOTP = true;
 
 session_start();
@@ -14,12 +16,7 @@ if(isset($_SESSION['user'])) {
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
     <?php include'head.php' ?>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="description" content="Bitter Mobile Template">
-    <meta name="keywords" content="bootstrap, mobile template, bootstrap 4, mobile, html, responsive" />
     <style>
         #alert .modal-dialog{padding:20px; margin-top:130px;}
         #registertoast .modal-dialog{padding:0px; margin-top:130px;}
@@ -34,7 +31,7 @@ if(isset($_SESSION['user'])) {
 <!-- * Page loading -->
 
 <!-- App Header -->
-<div class="appHeader1" style="background: lightslategray">
+<div class="appHeader1" style="<?php echo systemConfig('appHeader')?>">
     <div class="left"> <a href="login.php" class="icon goBack"> <i class="icon ion-md-arrow-back"></i> </a>
         <div class="pageTitle"> <?php echo $needsOTP ? 'Reset' : 'Change' ?> Password</div>
     </div>

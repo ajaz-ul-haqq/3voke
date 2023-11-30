@@ -22,7 +22,7 @@ terminateSession();
             border-color: #fff !important;
         }
         .appContent3 {
-            background-color: lightslategray !important;
+            <?php echo systemConfig('appHeader')?>;
             border-color: #2196f3 !important;
             padding:12px;
             border-radius:3px;
@@ -180,14 +180,6 @@ $walletResult = $user['balance'];
                     Support </a>
             </td>
         </tr>
-
-        <tr>
-            <td>
-                <a href="promotion.php" class="fa fa-gift text-dark" style="font-size:16px">
-                    Promotion </a>
-            </td>
-        </tr>
-
 
         <tr>
             <td>

@@ -5,6 +5,15 @@ use App\Models\Model;
 
 class AdminApiHandler {
 
+    public static function saveSettings(Request $request)
+    {
+        $column = $request->get('attr');
+        $value = $request->get('value');
+        systemConfigStore($column, $value);
+
+        self::successResponse('Setting Saved Successfully');
+    }
+
     public static function updateUserData(Request $request)
     {
         $id = $request->get('id');

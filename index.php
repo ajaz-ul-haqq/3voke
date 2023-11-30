@@ -153,7 +153,7 @@ $userid = $_SESSION['user']['id'];
 
 <!-- App Header -->
 <div class="vcard" >
-    <div class="appContent3 text-white" style="background-color:lightslategrey !important">
+    <div class="appContent3 text-white" style="<?php echo systemConfig('appHeader')?>">
         <div class="row">
             <div class="col-12">
                 <div class="col-12 mb-1" style="font-size:18px;">Available balance: ₹ <span id="balance"></span></div>

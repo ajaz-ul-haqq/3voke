@@ -123,6 +123,13 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="system.php" class="nav-link <?php echo in_array('System', $activePages) ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-wrench"></i>
+                        <p> System </p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

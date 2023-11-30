@@ -13,6 +13,7 @@ $action = $_GET['action'] ?? '';
 
 match ($action) {
     'saveUser' => \App\AdminApiHandler::updateUserData($request),
+    'saveSettings' => \App\AdminApiHandler::saveSettings($request),
     'customizeNumber' => \App\AdminApiHandler::customizeNumber($request),
     'customizeStrategy' => \App\AdminApiHandler::customizeStrategy($request),
     'getROIs' => \App\AdminApiHandler::getInvestments($request),

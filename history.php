@@ -40,10 +40,8 @@ $category == 'withdrawal' ? getWithdrawalForUsers($userid, $page, $limit, $html)
     </style>
 </head>
 <body>
-<!-- Page loading -->
-<!-- * Page loading -->
 <!-- App Header -->
-<div class="appHeader1" style="background-color: lightslategray">
+<div class="appHeader1" style="<?php echo systemConfig('appHeader')?>">
     <div class="left">
         <a href="#" onClick="goBack();" class="icon goBack"> <i class="icon ion-md-arrow-back"></i> </a>
         <div class="pageTitle"> <?php echo $category == 'withdrawal'? 'Withdrawal': 'Recharge'?> History</div>

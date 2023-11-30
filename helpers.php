@@ -153,10 +153,16 @@ function terminateSession(): void
 function systemConfig($key): string
 {
     try {
-        return model('system')->where('config', $key)->value('value');
+        return ($key == 'appHeader') ? 'background-color: '.systemConfig('color').' !important' :
+            model('system')->where('config', $key)->value('value');
     } catch (\Exception){
         return 'exc';
     }
+}
+
+function systemConfigStore($key, $value): void
+{
+    model('system')->where('config', $key)->update(['value' => $value]);
 }
 
 function createLog($event, $context, $to = '' , $from = '')
