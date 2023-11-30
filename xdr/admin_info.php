@@ -18,23 +18,27 @@ if (empty($_REQUEST['id'])) {
 $id = $_REQUEST['id'];
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $status = $_POST['status'];
 
     $admin = model('admins')->find($id);
 
     foreach ($admin as $item => $value) {
-        if(isset($_POST[$item]) && $_POST[$item] != $value){
-            $valuesToUpdate[$item] = $_POST[$item];
+        if(isset($_POST[$item]) && ( $_POST[$item] != $value)){
+            if ($item == 'password' && empty($_POST['password'])) {
+                continue;
+            }else{
+                $valuesToUpdate[$item] = $_POST[$item];
+            }
         }
+    }
+
+    if(!empty($valuesToUpdate['password'])){
+        $valuesToUpdate['password'] = password_hash($valuesToUpdate['password'], PASSWORD_BCRYPT);
     }
 
     if(!empty($valuesToUpdate)) {
         model('admins')->where('id', $id)->update($valuesToUpdate);
         foreach ($valuesToUpdate as $key => $value) {
-            createLog('admin_updated', 'Updated Admin <b>'.$admin['phone'].'</b>, Set <b>'.$key.'</b> as <b>'.$value.'</b> from <b>'.$admin[$key].'</b>');
+            ($key == 'password') ?: createLog('admin_updated', 'Updated Admin <b>'.$admin['phone'].'</b>, Set <b>'.$key.'</b> as <b>'.$value.'</b> from <b>'.$admin[$key].'</b>');
         }
     }
 }
@@ -47,7 +51,8 @@ $isActive = (bool) $admin['active'];
 include ('includes/navbar.php');
 include ('includes/sidebar.php');
 
-$logs = model('logs')->where('user_id', $loggedInUser['id'])->orderBy('id')->get();
+$sessions = model('logs')->where('user_id', $id)
+    ->orderBy('id')->select("DISTINCT(`session_id`)")->get();
 
 ?>
 
@@ -56,47 +61,6 @@ $logs = model('logs')->where('user_id', $loggedInUser['id'])->orderBy('id')->get
 
     <section class="content">
         <div class="row">
-            <div class="col-md-7">
-                <div class="card card-dark">
-                    <div class="card-header">
-                        <h3 class="card-title"> Logs </h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body p-0">
-                        <br>
-                        <div class="timeline ml-3">
-                            <!-- timeline time label -->
-                            <div class="time-label">
-                                <span class="bg-red"><?php echo date('j M, Y h:i A', strtotime('now')) ?></span>
-                            </div>
-                            <!-- /.timeline-label -->
-
-                            <?php
-                            foreach ($logs as $log) {
-
-                                $class = match ($log['action']) {
-                                    'rejected_withdrawal' => 'fas fa-times-circle bg-red',
-                                    'approved_withdrawal' => 'fas fa-check-circle bg-success',
-                                    'user_updated' => 'fas fa-user-edit bg-primary',
-                                    'customizeNumber' => 'fas fa-wrench bg-dark',
-                                    'customizeStrategy' => 'fas fa-chess-rook bg-purple',
-                                    default => 'fas fa-crosshairs bg-info'
-                                };
-
-                                echo ' <div>
-                                <i class="'.$class.'"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fas fa-clock"></i>'.date('j M, Y h:i:s A',strtotime($log['created_at'])).'</span>
-                                    <h3 class="timeline-header">'.$log['context'].'</h3>
-                                </div>
-                            </div>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-            </div>
             <div class="col-md-5">
                 <div class="card card-dark">
                     <div class="card-header">
@@ -144,7 +108,22 @@ $logs = model('logs')->where('user_id', $loggedInUser['id'])->orderBy('id')->get
                                 </div>
                             </div>
 
-                            <br>
+                            <?php
+
+                            if(@$_SESSION['admin']['id'] == @$_REQUEST['id']) {
+                                echo '<br>
+                            <div class="row">
+                                
+                                <div class="col-md-2">
+                                    <label for="password"><span class="bold">Password</span></label>
+                                </div>
+                                
+                                  <div class="col-md-10">
+                                    <input id="password" class="form-control form-control-sm" type="password" name="password" value="">
+                                </div>
+                            </div>';
+                            }else {
+                                echo '<br>
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="status">
@@ -156,12 +135,14 @@ $logs = model('logs')->where('user_id', $loggedInUser['id'])->orderBy('id')->get
                                 <div class="col-md-10">
                                     <div class="form-group">
                                         <select name="status" id="status" class="form-control select2" style="width: 100%;">
-                                            <option <?php echo $isActive ? 'selected="selected"' : ''?> value = "1" >Active</option>
-                                            <option <?php echo !$isActive ? 'selected="selected"' : ''?> value = "0">InActive</option>
+                                            <option '.(!$isActive ? 'selected="selected"' : '').' value = "1" >Active</option>
+                                            <option '.(!$isActive ? 'selected="selected"' : '').' value = "0">InActive</option>
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div>';
+                            }
+                            ?>
 
                             <br>
                             <div class="row">
@@ -169,6 +150,52 @@ $logs = model('logs')->where('user_id', $loggedInUser['id'])->orderBy('id')->get
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title"> Logs </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <br>
+                        <div class="timeline ml-3">
+
+                            <?php
+                            foreach ($sessions as $session) {
+
+                                $timing = model('logs')->where('session_id', $session['session_id'])->value('created_at');
+
+                                $logs = model('logs')->where('user_id', $id)
+                                    ->where('session_id', $session['session_id'])->orderBy('id')->get();
+
+                                foreach ($logs as $log) {
+                                    $class = match ($log['action']) {
+                                        'rejected_withdrawal' => 'fas fa-times-circle bg-red',
+                                        'approved_withdrawal' => 'fas fa-check-circle bg-success',
+                                        'user_updated' => 'fas fa-user-edit bg-primary',
+                                        'customizeNumber' => 'fas fa-wrench bg-dark',
+                                        'customizeStrategy' => 'fas fa-chess-rook bg-purple',
+                                        default => 'fas fa-crosshairs bg-info'
+                                    };
+
+                                    echo ' <div><i class="'.$class.'"></i>
+                                               <div class="timeline-item">
+                                                   <span class="time"><i class="fas fa-clock"></i>'.date('j M, Y h:i:s A',strtotime($log['created_at'])).'</span>
+                                                   <h3 class="timeline-header">'.$log['context'].'</h3>
+                                               </div>
+                                           </div>';
+                                }
+
+                                echo '<div class="time-label">
+                                <span class="bg-red"> Logged In '. date('j M, Y h:i A', strtotime($timing)).'</span>
+                            </div>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
             </div>
         </div>

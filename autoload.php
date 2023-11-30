@@ -9,10 +9,12 @@ function customAutoloader($className): void
     }
 }
 
-function clickAbleProfile($user, $key = 'phone'): string
+function clickAbleProfile($user, $key = 'phone', $adminView = false): string
 {
+    $baseUrl = $adminView ? 'admin_info.php?id=' : 'info.php?id=';
+
     try {
-        return '<a href="info.php?id='.$user['id'].'"><b>'.$user[$key].'</b></a>';
+        return '<a href="'.$baseUrl.$user['id'].'"><b>'.$user[$key].'</b></a>';
     } catch (\Exception){
         return 'unknown';
     }

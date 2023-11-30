@@ -37,7 +37,7 @@ include ('includes/sidebar.php');
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                  <h5><b><?php echo $withdrawals->sum('amount').' ('.$withdrawals->count('id').')' ?></b></h5>
+                  <h5><b><?php echo number_format($withdrawals->sum('amount')).' ('.$withdrawals->count('id').')' ?></b></h5>
 
                 <p>Pending Withdrawals </p>
               </div>
@@ -65,7 +65,7 @@ include ('includes/sidebar.php');
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                  <h5><b><?php echo $deposits->sum('amount').' ('.$deposits->count('id').')'; ?></b></h5>
+                  <h5><b><?php echo number_format($deposits->sum('amount')).' ('.$deposits->count('id').')'; ?></b></h5>
 
                 <p> Recent Deposits </p>
               </div>
@@ -79,7 +79,7 @@ include ('includes/sidebar.php');
                 <!-- small box -->
                 <div class="small-box bg-secondary">
                     <div class="inner">
-                        <h5><b><?php echo $totalDeposits->sum('amount').' ('.$totalDeposits->count('id').')'; ?></b></h5>
+                        <h5><b><?php echo number_format($totalDeposits->sum('amount')).' ('.$totalDeposits->count('id').')'; ?></b></h5>
 
                         <p>Total Deposits </p>
                     </div>
@@ -95,7 +95,7 @@ include ('includes/sidebar.php');
                   <!-- small box -->
                   <div class="small-box bg-purple">
                       <div class="inner">
-                          <h5><b><?php echo $orders->sum('amount').' ('.$orders->count('id').')' ?></b></h5>
+                          <h5><b><?php echo number_format($orders->sum('amount')).' ('.$orders->count('id').')' ?></b></h5>
 
                           <p> Recent Orders</p>
                       </div>
@@ -109,7 +109,7 @@ include ('includes/sidebar.php');
                   <!-- small box -->
                   <div class="small-box bg-orange">
                       <div class="inner">
-                          <h5><b><?php echo $totalOrders->sum('amount').' ('.$totalOrders->count('id').')' ?></b></h5>
+                          <h5><b><?php echo number_format($totalOrders->sum('amount')).' ('.$totalOrders->count('id').')' ?></b></h5>
 
                           <p> Total Orders</p>
                       </div>
@@ -123,7 +123,7 @@ include ('includes/sidebar.php');
                   <!-- small box -->
                   <div class="small-box bg-gray-dark">
                       <div class="inner">
-                          <h5><b><?php echo $todaysUsers->count() ?></b></h5>
+                          <h5><b><?php echo number_format($todaysUsers->count()) ?></b></h5>
 
                           <p>Recent Users</p>
                       </div>
@@ -137,7 +137,7 @@ include ('includes/sidebar.php');
                   <!-- small box -->
                   <div class="small-box bg-red">
                       <div class="inner">
-                          <h5><b><?php echo $totalActiveUsers ?></b></h5>
+                          <h5><b><?php echo number_format($totalActiveUsers) ?></b></h5>
 
                           <p>Total Users </p>
                       </div>
@@ -148,6 +148,77 @@ include ('includes/sidebar.php');
                   </div>
               </div>
           </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="card card-dark">
+                      <div class="card-header">
+                          <h3 class="card-title"> Recent Activities </h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body p-0" style="overflow: scroll; max-height: 800px; min-height: 800px">
+                          <br>
+                          <div class="timeline ml-3">
+
+                              <?php
+                              $logs = model('logs')->where('user_id', @$_SESSION['admin']['id'])->orderBy('id')->take(20);
+                              foreach ($logs as $log) {
+                                      $class = match ($log['action']) {
+                                          'rejected_withdrawal' => 'fas fa-times-circle bg-red',
+                                          'approved_withdrawal' => 'fas fa-check-circle bg-success',
+                                          'user_updated' => 'fas fa-user-edit bg-primary',
+                                          'customizeNumber' => 'fas fa-wrench bg-dark',
+                                          'customizeStrategy' => 'fas fa-chess-rook bg-purple',
+                                          default => 'fas fa-crosshairs bg-info'
+                                      };
+
+                                      echo ' <div><i class="'.$class.'"></i>
+                                               <div class="timeline-item">
+                                                   <span class="time"><i class="fas fa-clock"></i>'.date('j M, Y h:i:s A',strtotime($log['created_at'])).'</span>
+                                                   <h3 class="timeline-header">'.$log['context'].'</h3>
+                                               </div>
+                                           </div>';
+                                  }
+                              ?>
+                          </div>
+                          <br>
+                      </div>
+                      <!-- /.card-body -->
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="card card-dark">
+                      <div class="card-header">
+                          <h3 class="card-title"> System logs </h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body p-0"  style="overflow: scroll; max-height: 800px; min-height: 800px">
+                          <br>
+                          <div class="timeline ml-3">
+
+                              <?php
+                              $logs = model('logs')->orderBy('id', 'DESC')->take(20);
+                              foreach ($logs as $log) {
+                                  $class = match ($log['action']) {
+                                      'rejected_withdrawal' => 'fas fa-times-circle bg-red',
+                                      'approved_withdrawal' => 'fas fa-check-circle bg-success',
+                                      'user_updated' => 'fas fa-user-edit bg-primary',
+                                      'customizeNumber' => 'fas fa-wrench bg-dark',
+                                      'customizeStrategy' => 'fas fa-chess-rook bg-purple',
+                                      default => 'fas fa-crosshairs bg-info'
+                                  };
+                                  $user = model('admins')->find($log['user_id']);
+                                  echo '<div><i class="'.$class.'"></i><div class="timeline-item"><span class="time"><i class="fas fa-clock"></i> '.date('j M, Y h:i:s A',strtotime($log['created_at'])).'</span>
+                                       <h3 class="timeline-header">'.clickAbleProfile($user,'name', true).'</h3>
+                                       <div class="timeline-body">'.$log['context'].'</div></div></div>';
+                              }
+                              ?>
+                          </div>
+
+                          <br>
+                      </div>
+                      <!-- /.card-body -->
+                  </div>
+              </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

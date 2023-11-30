@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
   if (empty($user)) {
     $errorMessage = 'You are not at registered as an admin';
   }else {
-    if ($user['active'] && $user['password'] == $password) {
+    if ($user['active'] && password_verify($password, $user['password'])) {
       $_SESSION['admin']['id'] = $user['id'];
       $_SESSION['admin']['email'] = $emailOrPhone;
       $_SESSION['admin']['role'] = 'admin';
