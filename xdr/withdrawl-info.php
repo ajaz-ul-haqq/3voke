@@ -129,7 +129,6 @@ echo '<input type="hidden" id="withdrawlId" value="'.@$_REQUEST['id'].'">';
                             ?>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -153,13 +152,16 @@ include('includes/footer.php');
                 dataType: 'JSON',
 
                 success: (res) => {
-                    alert('Withdrawal Approved Successfully');
-                    window.location.reload();
+                    swal("Success!", 'Withdrawal Approved Successfully', "success").then(() => {
+                        window.location.reload();
+                    });
                 },
 
                 error: (error) => {
                     console.log(error)
-                    alert('Error in console')
+                    swal("Oops!", 'Something went wrong here', "success").then(() => {
+                        window.location.reload();
+                    });
                 }
             });
         });
@@ -175,13 +177,16 @@ include('includes/footer.php');
                 dataType: 'JSON',
 
                 success: (res) => {
-                    alert('Withdrawal Declined Successfully');
-                    window.location.reload();
+                    swal("Success!", 'Withdrawal Rejected Successfully', "error").then(() => {
+                        window.location.reload();
+                    });
                 },
 
                 error: (error) => {
                     console.log(error)
-                    alert('Error in console')
+                    swal("Oops!", 'Something went wrong here', "success").then(() => {
+                        window.location.reload();
+                    });
                 }
             });
         });
@@ -196,13 +201,16 @@ include('includes/footer.php');
                 dataType: 'JSON',
 
                 success: (res) => {
-                    alert('Withdrawal Completed Successfully');
-                    window.location.reload();
+                    swal("Success!", 'Withdrawal Completed Successfully', "success").then(() => {
+                        window.location.reload();
+                    });
                 },
 
                 error: (error) => {
                     console.log(error)
-                    alert('Error in console')
+                    swal("Oops!", 'Something went wrong here', "success").then(() => {
+                        window.location.reload();
+                    });
                 }
             });
         });

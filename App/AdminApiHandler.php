@@ -5,6 +5,36 @@ use App\Models\Model;
 
 class AdminApiHandler {
 
+    public static function updateUserData(Request $request)
+    {
+        $id = $request->get('id');
+
+        $admin = model('admins')->find($id);
+
+        foreach ($admin as $item => $value) {
+            if(isset($_POST[$item]) && ( $_POST[$item] != $value)){
+                if ($item == 'password' && empty($_POST['password'])) {
+                    continue;
+                }else{
+                    $valuesToUpdate[$item] = $_POST[$item];
+                }
+            }
+        }
+
+        if(!empty($valuesToUpdate['password'])){
+            $valuesToUpdate['password'] = password_hash($valuesToUpdate['password'], PASSWORD_BCRYPT);
+        }
+
+        if(!empty($valuesToUpdate)) {
+            model('admins')->where('id', $id)->update($valuesToUpdate);
+            foreach ($valuesToUpdate as $key => $value) {
+                ($key == 'password') ?: createLog('admin_updated', 'Updated Admin <b>'.$admin['phone'].'</b>, Set <b>'.$key.'</b> as <b>'.$value.'</b> from <b>'.$admin[$key].'</b>');
+            }
+        }
+
+        self::successResponse('User Updated Successfully');
+    }
+
     public static function createVoucher($amount): void
     {
         $id = @$_SESSION['admin']['id'];

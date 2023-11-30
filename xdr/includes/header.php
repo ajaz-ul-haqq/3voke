@@ -43,6 +43,7 @@ if(!isset($_SESSION['admin'])){
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   <script src="plugins/toastr/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

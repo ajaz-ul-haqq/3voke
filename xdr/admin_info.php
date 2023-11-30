@@ -17,32 +17,6 @@ if (empty($_REQUEST['id'])) {
 
 $id = $_REQUEST['id'];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $admin = model('admins')->find($id);
-
-    foreach ($admin as $item => $value) {
-        if(isset($_POST[$item]) && ( $_POST[$item] != $value)){
-            if ($item == 'password' && empty($_POST['password'])) {
-                continue;
-            }else{
-                $valuesToUpdate[$item] = $_POST[$item];
-            }
-        }
-    }
-
-    if(!empty($valuesToUpdate['password'])){
-        $valuesToUpdate['password'] = password_hash($valuesToUpdate['password'], PASSWORD_BCRYPT);
-    }
-
-    if(!empty($valuesToUpdate)) {
-        model('admins')->where('id', $id)->update($valuesToUpdate);
-        foreach ($valuesToUpdate as $key => $value) {
-            ($key == 'password') ?: createLog('admin_updated', 'Updated Admin <b>'.$admin['phone'].'</b>, Set <b>'.$key.'</b> as <b>'.$value.'</b> from <b>'.$admin[$key].'</b>');
-        }
-    }
-}
-
 $admin = model('admins');
 $admin = $admin->where('id', $id)->first();
 
@@ -54,6 +28,7 @@ include ('includes/sidebar.php');
 $sessions = model('logs')->where('user_id', $id)
     ->orderBy('id')->select("DISTINCT(`session_id`)")->get();
 
+echo "<input type='hidden' id='admin_id' value='".$id."'/>'";
 ?>
 
 <div class="content-wrapper">
@@ -67,7 +42,7 @@ $sessions = model('logs')->where('user_id', $id)
                         <h3 class="card-title">User details</h3>
                     </div>
                     <div class="card-body">
-                        <form action="admin_info.php?id=<?php echo $id ?>" method="POST">
+                        <form action="#" method="POST" id="userUpdateForm">
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="name">
@@ -204,4 +179,47 @@ $sessions = model('logs')->where('user_id', $id)
 
 <?php
 include('includes/footer.php')
+
 ?>
+
+
+<script>
+    $().ready(function() {
+        $("#userUpdateForm").on('submit',(function(e) {
+            e.preventDefault();
+
+            const data = {
+                id : document.getElementById('admin_id').value,
+                email : document.getElementById('email').value,
+                phone : document.getElementById('phone').value,
+                name : document.getElementById('name').value,
+            }
+
+            if (document.getElementById('password') != null) {
+                const pass = document.getElementById('password').value;
+                if (pass.length > 0) {
+                    data.password = pass;
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "actions.php?action=saveUser",
+                data: data,
+                dataType: 'JSON',
+
+                success :(res) => {
+                    swal("Success!", res.message, "success").then(() => {
+                        window.location.reload();
+                    });
+                },
+
+                error :(error) =>  {
+                    console.log(error)
+                    swal("Oops!", 'Something went wrong', "error");
+                }
+            });
+        }));
+    });
+
+</script>

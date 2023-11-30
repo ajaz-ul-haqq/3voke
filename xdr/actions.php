@@ -12,6 +12,7 @@ $request = (new \App\Request)->intercept();
 $action = $_GET['action'] ?? '';
 
 match ($action) {
+    'saveUser' => \App\AdminApiHandler::updateUserData($request),
     'customizeNumber' => \App\AdminApiHandler::customizeNumber($request),
     'customizeStrategy' => \App\AdminApiHandler::customizeStrategy($request),
     'getROIs' => \App\AdminApiHandler::getInvestments($request),
