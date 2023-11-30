@@ -1,20 +1,19 @@
 <?php
 
 require_once 'autoload.php';
-redirectIfNotLoggedIn();
+
+session_start();
+if (!isset($_SESSION['user'])) {
+    redirectTo('login.php');
+}
+
 $userid = $_SESSION['user']['id'];
 
 ?>
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> Evoke </title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <?php include('head.php'); ?>
     <style>
         circle {
             width: 50px;

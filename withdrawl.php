@@ -2,7 +2,10 @@
 
 require_once 'autoload.php';
 
-redirectIfNotLoggedIn();
+session_start();
+if (!isset($_SESSION['user'])) {
+    redirectTo('login.php');
+}
 $id = $_SESSION['user']['id'];
 terminateSession();
 
@@ -18,13 +21,7 @@ $upi = $user['upi']
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <?php include'head.php' ?>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="description" content="Brozers Mall">
-    <meta name="keywords" content="Brozers Mall" />
     <style>
         h3{ font-weight:normal; font-size:14px;}
         .btn {

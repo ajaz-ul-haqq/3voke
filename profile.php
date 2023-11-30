@@ -2,7 +2,11 @@
 
 require_once 'autoload.php';
 
-redirectIfNotLoggedIn();
+session_start();
+if (!isset($_SESSION['user'])) {
+    redirectTo('login.php');
+}
+
 
 $user = $_SESSION['user'];
 terminateSession();
@@ -11,12 +15,7 @@ terminateSession();
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <?php include'head.php' ?>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <style>
         .appHeader1 {
             background-color: #fff !important;
@@ -140,67 +139,63 @@ $walletResult = $user['balance'];
 <!-- * App Header -->
 
 <!-- App Capsule -->
-<div class="appContent1 mb-5">
-    <div class="contentBox long mb-3">
-        <div class="contentBox-body card-body">
+<div class="container-fluid">
+    <table class="table table-striped table-hover">
+        <tr>
+            <td>
+                <a href="order.php" class="fa fa-list text-dark"  style="font-size:16px"> Order </a>
+            </td>
+        </tr>
 
-            <!-- listview -->
-            <p style="color: white; font-size:11px;" ><strong>______________________________________________________________________________ </p>
-            <div class="accordion" id="accordionExample">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <a href="order.php" class="btn btn-link collapsed fa fa-list text-primary" style="font-size:16px"></i>
-                            Order </a> </h2>
-                </div>
-                <p style="color: white; font-size:11px;" ><strong>______________________________________________________________________________ </p>
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <a href="withdrawl.php" class="btn btn-link collapsed fa fa-money text-primary" style="font-size:16px"></i>
-                            Withdrawls </a> </h2>
-                </div>
-                <p style="color: white; font-size:11px;" ><strong>______________________________________________________________________________ </p>
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <a href="promotion.php" class="btn btn-link collapsed fa fa-gift text-primary" style="font-size:16px"></i>
-                            Promotion </a> </h2>
-                </div>
+        <tr>
+            <td>
+                <a href="withdrawl.php" class="fa fa-money text-dark" style="font-size:16px"> Withdrawls </a>
+            </td>
+        </tr>
 
-                <p style="color: white; font-size:11px;" ><strong>______________________________________________________________________________ </p>
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <a href="recovery.php" class="btn btn-link collapsed fa fa-shield text-primary" style="font-size:16px"></i>
-                            Reset Password </a> </h2>
-                </div>
+        <tr>
+            <td>
+                <a href="promotion.php" class="fa fa-gift text-dark" style="font-size:16px">
+                    Promotion </a>
+            </td>
+        </tr>
 
-                <p style="color: white; font-size:11px;" ><strong>_____________________________________________________________________</p>
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <a href="javascript:void(0); alert('coming soon')" class="btn btn-link collapsed"><i class="fa fa-download text-primary" style="font-size:16px"></i>
-                            Download App </a> </h2>
-                </div>
+        <tr>
+            <td>
+                <a href="recovery.php" class="fa fa-shield text-dark" style="font-size:16px">
+                    Change Password </a>
+            </td>
+        </tr>
 
-                <p style="color: white; font-size:11px;" ><strong>_____________________________________________________________________</p>
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <a href="https://t.me/the_evoke" class="btn btn-link collapsed"><i class="fa fa-telegram text-primary" style="font-size:16px"></i>
-                            Support </a> </h2>
-                </div>
+        <tr>
+            <td>
+                <a href="javascript:void(0); alert('coming soon')" class="fa fa-download text-dark" style="font-size:16px"></>
+                Download App </a>
+            </td>
+        </tr>
 
+        <tr>
+            <td>
+                <a href="https://t.me/the_evoke" class="fa fa-telegram text-dark" style="font-size:16px">
+                    Support </a>
+            </td>
+        </tr>
 
-                <p style="color: white; font-size:11px;" ><strong>_____________________________________________________________________</p>
-                <div class="card-header" id="headingThree">
-                    <h2 class="mb-0"> <a href="#" class="btn btn-link collapsed fa fa-user text-primary" type="button" data-toggle="collapse" data-target="#collapsefive" aria-expanded="false" aria-controls="collapsefive"> About </a> </h2>
-                </div>
-                <div id="collapsefive" class="collapse">
-                    <a href="priv.acy.php" class="sub-link"> Privacy Policy </a>
-                    <a href="riskagreement.php" class="sub-link"> Risk Disclosure Agreement </a>
-                </div>
-            </div>
+        <tr>
+            <td>
+                <a href="promotion.php" class="fa fa-gift text-dark" style="font-size:16px">
+                    Promotion </a>
+            </td>
+        </tr>
 
 
-            <!-- * listview -->
-        </div>
-    </div>
+        <tr>
+            <td>
+                <a href="javascript:void(0); alert('coming soon')" class="fa fa-user text-dark" style="font-size:16px"></>
+                About </a>
+            </td>
+        </tr>
+    </table>
     <!-- app Footer -->
     <div class="text-center mt-4"> <a href="handler.php?action=authLogout" class="btn btn-sm btn-danger btn-block" style="width:200px;">Logout</a> </div>
     <!-- * app Footer -->

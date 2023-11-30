@@ -150,6 +150,14 @@ function terminateSession(): void
     session_abort();
 }
 
+function systemConfig($key): string
+{
+    try {
+        return model('system')->where('config', $key)->value('value');
+    } catch (\Exception){
+        return 'exc';
+    }
+}
 
 function createLog($event, $context, $to = '' , $from = '')
 {

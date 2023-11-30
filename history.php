@@ -1,8 +1,10 @@
 <?php
 
 include 'autoload.php';
-
-redirectIfNotLoggedIn();
+session_start();
+if (!isset($_SESSION['user'])) {
+    redirectTo('login.php');
+}
 
 $userid = $_SESSION['user']['id'];
 
@@ -20,12 +22,7 @@ $category == 'withdrawal' ? getWithdrawalForUsers($userid, $page, $limit, $html)
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
     <?php include 'head.php';?>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="description" content="Bitter Mobile Template">
-    <meta name="keywords" content="bootstrap, mobile template, bootstrap 4, mobile, html, responsive" />
     <style>
         h3 {
             font-weight:normal;
