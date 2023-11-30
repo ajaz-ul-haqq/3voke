@@ -57,15 +57,15 @@ $upi = $user['upi']
     <div class="appContent1">
         <input type="hidden" id="minimumWithdrawl" name="minimumWithdrawl" value="<?php echo minimumWithdrawl(); ?>">
         <h5 class="text-center m-2">Balance: <span>Rs <?php echo number_format(getUserBalance()); ?></span></h5>
-        <form action="#" id="paymentForm" method="post" class="card-body" autocomplete="off">
+        <form action="#" id="withdrawlForm" method="post" class="card-body" autocomplete="off">
             <div class="inner-addon left-addon">
                 <i class="icon ion-md-wallet"></i>
-                <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter withdrawal amount" onKeyPress="return isNumber(event)" >
+                <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter withdrawal amount" >
             </div>
             <div>
                 <h3 class="text-bold pl-1"> * <i>Minimum amount : <b>Rs <?php echo minimumWithdrawl(); ?></b></i></h3>
                 <div class="text-center mt-3">
-                    <button type="submit" class="btn btn-primary" style="width:264px;"> Withdrawal  </button>
+                    <button type="submit" class="btn btn-primary" style="width:264px;"> Withdraw  </button>
                 </div>
             </div>
         </form>

@@ -26,6 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
       $_SESSION['admin']['id'] = $user['id'];
       $_SESSION['admin']['email'] = $emailOrPhone;
       $_SESSION['admin']['role'] = 'admin';
+      $_SESSION['unique_id'] = uniqid('session_');
       header('Location:index.php');
     } else {
       $errorMessage = 'Invalid credentials';

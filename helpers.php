@@ -158,6 +158,7 @@ function createLog($event, $context, $to = '' , $from = '')
         'action' => $event,
         'final_value' => $to,
         'initial_value' => $from,
-        'context' => $context
+        'context' => $context,
+        'session_id' => @$_SESSION['unique_id']
     ]);
 }

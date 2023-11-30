@@ -31,7 +31,7 @@ $(document).ready(function () {
         });
     }));
 
-    $("#paymentForm").on('submit',(function(e) {
+    $("#withdrawlForm").on('submit',(function(e) {
         e.preventDefault();
         $('input#amount').removeClass('borderline is-invalid')
         const amount = $('input#amount').val();
@@ -41,6 +41,7 @@ $(document).ready(function () {
             $('input#amount').addClass('borderline is-invalid')
             return false;
         }
+
         $('#paymentdetail').modal({backdrop: 'static', keyboard: false})
         $('#paymentdetail').modal('show');
     }));

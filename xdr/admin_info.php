@@ -18,18 +18,25 @@ if (empty($_REQUEST['id'])) {
 $id = $_REQUEST['id'];
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $admin = model('admins');
     $email = $_POST['email'];
     $name = $_POST['name'];
     $phone = $_POST['phone'];
     $status = $_POST['status'];
 
-    $admin->where('id', $id)->update([
-        'name' => $name,
-        'email' => $email,
-        'phone' => $phone,
-        'active' => $status,
-    ]);
+    $admin = model('admins')->find($id);
+
+    foreach ($admin as $item => $value) {
+        if(isset($_POST[$item]) && $_POST[$item] != $value){
+            $valuesToUpdate[$item] = $_POST[$item];
+        }
+    }
+
+    if(!empty($valuesToUpdate)) {
+        model('admins')->where('id', $id)->update($valuesToUpdate);
+        foreach ($valuesToUpdate as $key => $value) {
+            createLog('admin_updated', 'Updated Admin <b>'.$admin['phone'].'</b>, Set <b>'.$key.'</b> as <b>'.$value.'</b> from <b>'.$admin[$key].'</b>');
+        }
+    }
 }
 
 $admin = model('admins');
@@ -96,7 +103,7 @@ $logs = model('logs')->where('user_id', $loggedInUser['id'])->orderBy('id')->get
                         <h3 class="card-title">User details</h3>
                     </div>
                     <div class="card-body">
-                        <form action="info.php?id=<?php echo $id ?>" method="POST">
+                        <form action="admin_info.php?id=<?php echo $id ?>" method="POST">
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="name">
