@@ -2,7 +2,7 @@
 
 $wrapperContext = 'Withdrawal Info';
 
-$activePages = ['Payments', 'Withdrawals'];
+$activePages = ['Payments', 'Withdrawls'];
 
 $breadCrumbs = ['home', 'withdrawals', 'info'];
 
