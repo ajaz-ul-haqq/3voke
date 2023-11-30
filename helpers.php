@@ -52,13 +52,13 @@ function getLoggedInUser()
 
 function minimumDeposit(): int
 {
-    return 200;
+    return systemConfig('minimum_deposit');
     return (int) model('system')->where('config', 'minimum_deposit')->value('value');
 }
 
 function minimumWithdrawl(): int
 {
-    return 500;
+    return systemConfig('minimum_withdrawl');
     return (int) \model('system')->where('config', 'minimum_withdrawl')->value('value');
 }
 

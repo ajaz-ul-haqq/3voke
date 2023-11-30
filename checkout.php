@@ -1,6 +1,6 @@
 <?php
 
-
+require_once 'autoload.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -29,7 +29,7 @@ header("Expires: 0");
   <meta name="keywords" content="bootstrap, mobile template, bootstrap 4, mobile, html, responsive" />
   <style>
 .appHeader1 {
-	background-color: #f44336 !important;
+    <?php echo systemConfig('appHeader'); ?>;
 	border-color: #f44336 !important;
 }
 .card {
@@ -43,7 +43,7 @@ h3 {
 .razorpay-payment-button {
 	padding: 10px 50px;
 	color: #fff;
-	background: #ff2e17;
+    <?php echo systemConfig('appHeader'); ?>;
 	font-weight: 600;
 	font-size: 14px;
 	border: 1px solid #ff2e17;

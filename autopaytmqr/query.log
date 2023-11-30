@@ -1,1 +1,2 @@
 [2023-11-29 10:29:53] (INSERT INTO deposits (user_id, status, amount, utr, unique_id) VALUES("2", "INITIATED", "6000", "", "6566c5493d7cd1701233993");)
+[2023-12-01 00:48:49] (INSERT INTO deposits (user_id, status, amount, utr, unique_id) VALUES("2", "INITIATED", "3000", "", "6568e01963d931701371929");)

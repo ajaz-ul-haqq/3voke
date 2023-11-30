@@ -35,14 +35,30 @@ include('includes/sidebar.php');
                                 <button type="button" id="saveTitleButton" class="btn btn-info form-control btn-sm"> Save </button>
                             </div>
                             <div class="col-md-4">
-                                <label for="keywords"> Keywords </label>
+                                <label for="keywords">Meta Keywords </label>
                                 <input class="form-control" type="text" id="keywords" name="keywords"  value="<?php echo systemConfig('keywords')?>"><br>
                                 <button type="button" id="saveKeyButton" class="btn btn-info form-control btn-sm"> Save </button>
                             </div>
                             <div class="col-md-4">
-                                <label for="color"> Select Color </label>
+                                <label for="color"> App Theme </label>
                                 <input class="form-control" type="color" id="color" name="color" value="<?php echo systemConfig('color')?>"><br>
                                 <button type="button" id="saveColorButton" class="btn btn-info form-control btn-sm"> Save </button>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="m_w"> Minimum Withdrawl </label>
+                                <input class="form-control" type="number" id="m_w" name="m_w" value="<?php echo systemConfig('minimum_withdrawl')?>">
+                                <br>
+                                <button type="button" id="saveMWButton" class="btn btn-info form-control btn-sm"> Save </button>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="m_r"> Minimum Deposit </label>
+                                <input class="form-control" type="number" id="m_r" name="m_r"  value="<?php echo systemConfig('minimum_deposit')?>"><br>
+                                <button type="button" id="saveMRButton" class="btn btn-info form-control btn-sm"> Save </button>
                             </div>
                         </div>
                     </div>
@@ -80,6 +96,20 @@ include('includes/footer.php');
                 value : value,
             }
             callApiNow(data);
+        });
+
+        $('#saveMWButton').on('click', function (event) {
+            callApiNow({
+                attr : 'minimum_withdrawl',
+                value : parseInt(document.getElementById('m_w').value),
+            });
+        });
+
+        $('#saveMRButton').on('click', function (event) {
+            callApiNow({
+                attr : 'minimum_deposit',
+                value : parseInt(document.getElementById('m_r').value),
+            });
         });
 
         $('#saveKeyButton').on('click', function (event) {

@@ -58,6 +58,7 @@ $email = $user['email'];
                 <input type="number" id="userammount" name="userammount" class="form-control" placeholder="Enter recharge amount" onKeyPress="return isNumber(event)" >
             </div>
             <div>
+                <?php echo "<input type='hidden' name='minimumDeposit' id='minimumDeposit' value='".minimumDeposit()."'>"?>
                 <h3 class="text-bold pl-1"> * <i>Minimum amount : <b>Rs <?php echo minimumDeposit(); ?></b></i></h3>
                 <div class="text-center mt-3">
                     <button type="submit" class="btn btn-primary" style="width:264px;"> Recharge </button>

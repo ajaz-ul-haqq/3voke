@@ -290,6 +290,11 @@ class ApiHandler {
             return false;
         }
 
+        if (model('withdrawls')->where('user_id', $user['id'])->where('status', 'IN', '("INITIATED", "APPROVED")')->count()) {
+            $message = 'Multiple withdrawals are not allowed';
+            return false;
+        }
+
         return true;
     }
 

@@ -26,7 +26,6 @@ $(document).ready(function () {
 
             error : function (err) {
                 errorHandler(err.responseJSON.message)
-                $('#paymentdetail').modal('show');
             }
         });
     }));
@@ -37,7 +36,7 @@ $(document).ready(function () {
         const amount = $('input#amount').val();
         const minimumWithdrawl = $('#minimumWithdrawl').val()
 
-        if (amount < minimumWithdrawl) {
+        if (parseInt(amount) < parseInt(minimumWithdrawl)) {
             $('input#amount').addClass('borderline is-invalid')
             return false;
         }

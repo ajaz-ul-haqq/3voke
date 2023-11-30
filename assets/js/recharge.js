@@ -1,62 +1,11 @@
-$.validator.setDefaults({
-    submitHandler: function() {
-    }
-});
-
-$().ready(function() {
-    $("#paymentForm").validate({
-        rules: {
-            amount: {
-                required: true,
-                number: true,
-                min: 200,
-                max: 100000
-            },
-        },
-        messages: {
-            email: "Please enter a valid email address",
-            remember: "Please accept our policy",
-        }
-
-    });
-
-    $("#paymentdetailForm").validate({
-        rules: {
-            name: {
-                required: true,
-            },
-            mobile: {
-                required: true,
-                number: true,
-                minlength: 10
-            },
-            email: {
-                required: true,
-            },
-        },
-        messages: {
-            password: {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 5 characters long"
-            },
-            email: "Please enter a valid email address",
-            remember: "Please accept our policy",
-        }
-    });
-});
-
 $(document).ready(function () {
     $("#paymentForm").on('submit',(function(e) {
         e.preventDefault();
         $('#userammount').removeClass('borderline is-invalid');
         const amount = $('input#userammount').val();
+        const minAmount = $('#minimumDeposit').val();
 
-        if(amount < 200) {
-            $("input#userammount").focus();
-            $('#userammount').addClass('borderline is-invalid');
-            return false;
-        }
-        if(amount > 100000) {
+        if(amount == '' || parseInt(amount) < parseInt(minAmount)) {
             $("input#userammount").focus();
             $('#userammount').addClass('borderline is-invalid');
             return false;
