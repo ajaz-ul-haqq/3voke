@@ -1,6 +1,13 @@
 <?php
 
 require 'helpers.php';
+
+define("APP_URL", $_SERVER['HTTP_HOST'] . '/evoke');
+const DB_HOST = 'localhost';
+const DB_USER = 'root';
+const DB_PASS = 9090;
+const DB_NAME = 'next';
+
 function customAutoloader($className): void
 {
     $filePath = __DIR__ . '/' . str_replace('\\', '/', $className) . '.php';

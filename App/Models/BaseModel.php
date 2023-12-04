@@ -26,7 +26,7 @@ class BaseModel {
     public function __construct($table = '')
     {
         try {
-            $conn = new \mysqli('localhost', 'root', '9090', 'next');
+            $conn = new \mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             $this->setConnection($conn, $table);
 

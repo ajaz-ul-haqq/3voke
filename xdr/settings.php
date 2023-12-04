@@ -60,6 +60,11 @@ include('includes/sidebar.php');
                                 <input class="form-control" type="number" id="m_r" name="m_r"  value="<?php echo systemConfig('minimum_deposit')?>"><br>
                                 <button type="button" id="saveMRButton" class="btn btn-info form-control btn-sm"> Save </button>
                             </div>
+                            <div class="col-md-4">
+                                <label for="s_m_h"> Social Media Handler</label>
+                                <input class="form-control" type="text" id="s_m_h" name="s_m_h"  value="<?php echo systemConfig('s_m_handler')?>"><br>
+                                <button type="button" id="saveSMHButton" class="btn btn-info form-control btn-sm"> Save </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,6 +114,13 @@ include('includes/footer.php');
             callApiNow({
                 attr : 'minimum_deposit',
                 value : parseInt(document.getElementById('m_r').value),
+            });
+        });
+
+        $('#saveSMHButton').on('click', function (event) {
+            callApiNow({
+                attr : 's_m_handler',
+                value : (document.getElementById('s_m_h').value),
             });
         });
 

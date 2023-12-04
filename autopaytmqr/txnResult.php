@@ -3,8 +3,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$redirectTo = '/evoke/index.php';
-
 require_once('config.php');
 require_once('checksum.php');
 
@@ -14,10 +12,12 @@ require_once '../helpers.php';
 // Set the timezone to Asia/Kolkata
 date_default_timezone_set("Asia/Kolkata");
 
-$servername = "localhost"; // replace with your server name
-$username = "root"; // replace with your username
-$password = "9090"; // replace with your password
-$dbname = "next"; // replace with your database name
+$servername = DB_HOST; // replace with your server name
+$username = DB_USER; // replace with your username
+$password = DB_PASS; // replace with your password
+$dbname = DB_NAME; // replace with your database name
+
+$redirectTo = APP_URL;
 
 $con = mysqli_connect($servername, $username, $password, $dbname);
 
