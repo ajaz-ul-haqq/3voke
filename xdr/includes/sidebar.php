@@ -124,11 +124,29 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="system.php" class="nav-link <?php echo in_array('System', $activePages) ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-wrench"></i>
-                        <p> System </p>
+                <li class="nav-item has-treeview <?php echo in_array('System', $activePages) ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?php echo in_array('System', $activePages) ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            System
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="settings.php" class="nav-link <?php echo in_array('Settings', $activePages) ? 'active' : '' ?>">
+                                <i class="fas fa-tools nav-icon"></i>
+                                <p> Settings  </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="logs.php" class="nav-link <?php echo in_array('Logs', $activePages) ? 'active' : '' ?>">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p> Logs  </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

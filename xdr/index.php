@@ -180,6 +180,10 @@ include ('includes/sidebar.php');
                                   }
                               ?>
                           </div>
+
+                          <h6 style="text-align: center">
+                              <a href='logs.php?user_id=1'> View All </a>;
+                          </h6>
                           <br>
                       </div>
                       <!-- /.card-body -->
@@ -213,7 +217,9 @@ include ('includes/sidebar.php');
                               }
                               ?>
                           </div>
-
+                          <h6 style="text-align: center">
+                              <a href='logs.php'> View All </a>;
+                          </h6>
                           <br>
                       </div>
                       <!-- /.card-body -->
