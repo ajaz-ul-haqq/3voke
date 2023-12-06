@@ -2,11 +2,12 @@
 
 require 'helpers.php';
 
-define("APP_URL", $_SERVER['HTTP_HOST'] . '/evoke');
+const APP_URL = 'https://faveo.local/evoke/';
 const DB_HOST = 'localhost';
 const DB_USER = 'root';
 const DB_PASS = 9090;
 const DB_NAME = 'next';
+const PAYTM_BUSINESS_UPI = 'paytmqr2810050501011j3g80guoq5g@paytm';
 
 function customAutoloader($className): void
 {

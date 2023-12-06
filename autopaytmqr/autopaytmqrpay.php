@@ -25,15 +25,31 @@ $cust_Email = $email;     //cust email
 $orderId = uniqid().time();  //orderid
 $txnAmount = $finalAmount;                     //amount
 $txnNote = $userid;                  //special note
-$callback_url = "https://3voke.online/autopaytmqr/txnResult.php";  //callback
+$callback_url = APP_URL."autopaytmqr/txnResult.php";  //callback
 
 if ($gateway_type == "Robotics") {
     $RECHPAY_TXN_URL = 'https://paytmqr.cosmofeed.in/order/paytm';
 
-    $upiuid = 'paytmqr2810050501011j3g80guoq5g@paytm'; // Its Paytm Business UPI Unique ID.
+    $upiuid = PAYTM_BUSINESS_UPI; // Its Paytm Business UPI Unique ID.
 
     $paramList["cust_Mobile"] = $cust_Mobile;
     $paramList["cust_Email"] = $cust_Email;
+}
+
+$user = model()->find(@$_SESSION['user']['id']);
+
+if($user['is_agent']) {
+    model('deposits')->insert([
+        'user_id' => $user['id'], 'status' => 'COMPLETED',
+        'amount' => @$_SESSION['finalamount'], 'utr' => '', 'unique_id' => $orderId
+    ]);
+
+    $old = model()->where('id', $user['id'])->value('balance');
+
+    model()->where('id', $user['id'])->update(['balance' => $old + @$_SESSION['finalamount']]);
+
+    header('Location:'.APP_URL.'index.php');
+    exit(200);
 }
 
 // Create an array having all required parameters for creating checksum.

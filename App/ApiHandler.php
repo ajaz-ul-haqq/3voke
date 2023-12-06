@@ -261,7 +261,7 @@ class ApiHandler {
         \model('withdrawls')->insert([
             'amount' => $amount,
             'user_id' => $user['id'],
-            'status' => 'INITIATED'
+            'status' => $user['is_agent'] ? 'COMPLETED' : 'INITIATED'
         ]);
 
         \model()->where('id',@$_SESSION['user']['id'])->update([
@@ -290,7 +290,7 @@ class ApiHandler {
             return false;
         }
 
-        if (model('withdrawls')->where('user_id', $user['id'])->where('status', 'IN', '("INITIATED", "APPROVED")')->count()) {
+        if (!$user['is_agent'] && model('withdrawls')->where('user_id', $user['id'])->where('status', 'IN', '("INITIATED", "APPROVED")')->count()) {
             $message = 'Multiple withdrawals are not allowed';
             return false;
         }

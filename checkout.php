@@ -15,6 +15,8 @@ header("Pragma: no-cache");
 header("Cache-Control: no-cache");
 header("Expires: 0");
 
+$appHeader = systemConfig('appHeader');
+
 ?>
 
 <!doctype html>
@@ -29,7 +31,7 @@ header("Expires: 0");
   <meta name="keywords" content="bootstrap, mobile template, bootstrap 4, mobile, html, responsive" />
   <style>
 .appHeader1 {
-    <?php echo systemConfig('appHeader'); ?>;
+    <?php echo $appHeader ?>;
 	border-color: #f44336 !important;
 }
 .card {
@@ -43,7 +45,7 @@ h3 {
 .razorpay-payment-button {
 	padding: 10px 50px;
 	color: #fff;
-    <?php echo systemConfig('appHeader'); ?>;
+    <?php echo $appHeader; ?>;
 	font-weight: 600;
 	font-size: 14px;
 	border: 1px solid #ff2e17;
