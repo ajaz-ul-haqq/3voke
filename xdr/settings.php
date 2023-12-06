@@ -149,7 +149,7 @@ include('includes/footer.php');
 
                 error: (error) => {
                     console.log(error)
-                    swal("Oops!", 'Something went wrong here', "success").then(() => {
+                    swal("Oops!", 'Something went wrong here', "error").then(() => {
                         window.location.reload();
                     });
                 }

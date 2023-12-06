@@ -1,17 +1,35 @@
 <?php
 
 namespace App;
+
 use App\Models\Model;
 
 class AdminApiHandler {
 
     public static function saveSettings(Request $request)
     {
-        $column = $request->get('attr');
-        $value = $request->get('value');
-        systemConfigStore($column, $value);
+        try {
+            $column = $request->get('attr');
+            $value = $request->get('value');
+            $oldValue = systemConfig($column);
+            systemConfigStore($column, $value);
 
-        self::successResponse('Setting Saved Successfully');
+            $config = match ($column) {
+                'keywords' => 'Meta Keywords',
+                'color' => 'Theme Colour',
+                'title' => 'App Title',
+                'minimum_withdrawl' => 'Minimum Withdrawl',
+                'minimum_deposit' => 'Minimum Deposit',
+                's_m_handler' => 'Social Handler',
+                default => ucfirst($column)
+            };
+
+            createLog('updated_setting', 'Set <b>'.$config.'</b> as <b>'.$value.'</b> from <b>'.$oldValue.'</b>');
+
+            self::successResponse('Setting Saved Successfully');
+        } catch (\Exception $e){
+            self::errorResponse('oops', 500);
+        }
     }
 
     public static function updateUserData(Request $request)

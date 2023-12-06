@@ -176,7 +176,7 @@ $walletResult = $user['balance'];
 
         <tr>
             <td>
-                <a href="<?php systemConfig('s_m_handler')?>" class="fa fa-telegram text-dark" style="font-size:16px">
+                <a href="<?php echo systemConfig('s_m_handler')?>" class="fa fa-telegram text-dark" style="font-size:16px">
                     Support </a>
             </td>
         </tr>

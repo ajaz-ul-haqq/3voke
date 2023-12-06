@@ -42,6 +42,7 @@ class BaseModel {
         }
 
         $this->conn = $conn;
+        $table = ($table === 'system') ? '`system`' : $table;
         $this->table = $table;
     }
 
@@ -92,7 +93,7 @@ class BaseModel {
     {
         $query = $sql ?: $this->baseQuery();
 
-        if(in_array($this->operation, ['INSERT', 'UPDATE'])){
+        if($this->table != 'logs' && in_array($this->operation, ['INSERT', 'UPDATE'])){
             $fp = fopen('query.log', 'a+');
             fwrite($fp, '['.date('Y-m-d H:i:s').'] ('.$query.')'.PHP_EOL);
             fclose($fp);
