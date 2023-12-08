@@ -121,6 +121,13 @@
                                 <p> Vouchers  </p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="merchants.php" class="nav-link <?php echo in_array('Merchants', $activePages) ? 'active' : '' ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p> Merchant  </p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

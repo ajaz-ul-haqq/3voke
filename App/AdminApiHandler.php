@@ -62,6 +62,28 @@ class AdminApiHandler {
         self::successResponse('User Updated Successfully');
     }
 
+
+    public static function saveMerchantData(Request $request): void
+    {
+        try {
+            if ($request->method() != 'POST') {
+                throw new \Exception($request->method(). ' method not supported');
+            }
+
+            model('merchant')->where('id', 1)->update([
+                'merchant_id' => $request->get('merchant_id'),
+                'secret' => $request->get('secret'),
+                'token' => $request->get('token'),
+                'upi' => $request->get('upi'),
+            ]);
+
+        } catch (\Exception $e) {
+            self::errorResponse($e->getMessage());
+        }
+
+        self::successResponse('Merchant Saved Successfully');
+    }
+
     public static function createVoucher($amount): void
     {
         $id = @$_SESSION['admin']['id'];

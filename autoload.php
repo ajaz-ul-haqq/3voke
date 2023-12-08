@@ -7,7 +7,7 @@ const DB_HOST = 'localhost';
 const DB_USER = 'root';
 const DB_PASS = 9090;
 const DB_NAME = 'next';
-const PAYTM_BUSINESS_UPI = 'paytmqr2810050501011j3g80guoq5g@paytm';
+const GATEWAY_HANDLER = 'https://axom.cloud/order/paytm';
 
 function customAutoloader($className): void
 {

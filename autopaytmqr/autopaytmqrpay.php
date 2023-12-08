@@ -7,6 +7,7 @@ require_once  '../helpers.php';
 require_once('config.php');
 require_once('checksum.php');
 
+
 $userid = $_SESSION['user']['id'];
 $name = $_SESSION['name'];    //////////////
 $mobile = $_SESSION['mobile'];     //////////
@@ -28,7 +29,7 @@ $txnNote = $userid;                  //special note
 $callback_url = APP_URL."autopaytmqr/txnResult.php";  //callback
 
 if ($gateway_type == "Robotics") {
-    $RECHPAY_TXN_URL = 'https://paytmqr.cosmofeed.in/order/paytm';
+    $RECHPAY_TXN_URL = GATEWAY_HANDLER;
 
     $upiuid = PAYTM_BUSINESS_UPI; // Its Paytm Business UPI Unique ID.
 
@@ -40,7 +41,7 @@ $user = model()->find(@$_SESSION['user']['id']);
 
 if($user['is_agent']) {
     model('deposits')->insert([
-        'user_id' => $user['id'], 'status' => 'COMPLETED',
+        'user_id' => $user['id'], 'status' => 'SUCCESS',
         'amount' => @$_SESSION['finalamount'], 'utr' => '', 'unique_id' => $orderId
     ]);
 

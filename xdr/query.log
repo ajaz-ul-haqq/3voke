@@ -1,0 +1,6 @@
+[2023-12-09 00:39:12] (UPDATE merchant SET `merchant_id` = 'eXvRve70875771749917', `secret` = 'UXROrT2L69', `token` = '757bc9-6eb5be-f5342e-324940-588587', `upi` = 'paytmqr15nls2t9kc@paytm' WHERE id = "1")
+[2023-12-09 00:39:18] (UPDATE merchant SET `merchant_id` = 'eXvRve70875771749917', `secret` = 'UXROrT2L69', `token` = '757bc9-6eb5be-f5342e-324940-588587', `upi` = 'paytmqr15nls2t9kc@paytms' WHERE id = "1")
+[2023-12-09 00:39:22] (UPDATE merchant SET `merchant_id` = 'eXvRve70875771749917', `secret` = 'UXROrT2L69', `token` = '757bc9-6eb5be-f5342e-324940-588587', `upi` = 'paytmqr15nls2t9kc@paytm' WHERE id = "1")
+[2023-12-09 00:45:45] (UPDATE merchant SET `merchant_id` = 'eXvRve70875771749917', `secret` = 'UXROrT2L69', `token` = '757bc9-6eb5be-f5342e-324940-588587', `upi` = 'paytmqr15nls2t9kc@paytm' WHERE id = "1")
+[2023-12-09 01:06:28] (UPDATE `system` SET `value` = 'axomID' WHERE config = "title")
+[2023-12-09 01:11:04] (UPDATE merchant SET `merchant_id` = 'eXvRve70875771749917', `secret` = 'UXROrT2L69', `token` = '757bc9-6eb5be-f5342e-324940-588587', `upi` = 'paytmqr15nls2t9kc@paytm' WHERE id = "1")

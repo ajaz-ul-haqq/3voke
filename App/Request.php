@@ -35,4 +35,15 @@ class Request {
     {
         return $this->request;
     }
+
+    public function except($key): array
+    {
+        $data = $this->request;
+
+        if($this->has($key)) {
+            unset($data['key']);
+        }
+
+        return $data;
+    }
 }

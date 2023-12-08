@@ -21,6 +21,7 @@ match ($action) {
     'approveWithdrawal' => \App\AdminApiHandler::approveWithdrawal($request),
     'declineWithdrawal' => \App\AdminApiHandler::approveWithdrawal($request, 'REJECTED'),
     'completeWithdrawal' => \App\AdminApiHandler::approveWithdrawal($request, 'COMPLETED'),
+    'saveMerchant' => \App\AdminApiHandler::saveMerchantData($request),
     default => \App\ApiHandler::errorResponse('Invalid Action')
 };
 

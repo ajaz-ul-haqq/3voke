@@ -3,11 +3,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once('config.php');
-require_once('checksum.php');
 
 require_once '../autoload.php';
-require_once '../helpers.php';
+require_once('config.php');
+require_once('checksum.php');
 
 // Set the timezone to Asia/Kolkata
 date_default_timezone_set("Asia/Kolkata");
@@ -31,7 +30,7 @@ $verifySignature = '';
 $array = array();
 $paramList = array();
 
-$secret = 'DXrk7N1auX'; // Your Secret Key.
+//$secret = model('merchant')->value('secret'); // Your Secret Key.
 $status = $_POST['status']; // Payment Status Only, Not Txn Status.
 $message = $_POST['message']; // Txn Message.
 $cust_Mobile = $_POST['cust_Mobile']; // Txn Message.
@@ -46,7 +45,6 @@ $user = model()->where('phone', $cust_Mobile)->first();
 if ($status == "SUCCESS") {
     $paramList = hash_decrypt($hash, $secret);
     $verifySignature = RechPayChecksum::verifySignature($paramList, $secret, $checksum);
-
     // Checksum verify.
     if ($verifySignature) {
         $array = json_decode($paramList);
