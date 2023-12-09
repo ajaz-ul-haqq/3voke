@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
+session_start();
 require_once '../autoload.php';
 require_once('config.php');
 require_once('checksum.php');
@@ -93,10 +93,20 @@ if ($status == "SUCCESS") {
 
         updateOrderAs($orderId,'SUCCESS', $utr);
 
-        $userId = model('deposits')->where('unique_id', $orderId)->value('user_id');
+        $deposit = model('deposits')->where('unique_id', $orderId)->first();
+
+        $userId = $deposit['user_id'];
 
         $oldBalance = model()->where('id', $userId)->value('balance');
         model()->where('id', $userId)->update(['balance' => ($oldBalance + (int)$amount) ]);
+        model('transactions')->insert([
+            'user_id' => $userId,
+            'merchant_id' => @$_SESSION['merchant_id'],
+            'order_id' => $orderId,
+            'deposit_id' => $deposit['id'],
+            'amount' => $deposit['amount'],
+            'status' => 'SUCCESS'
+        ]);
 
         header('Location:'.$redirectTo);
 
@@ -108,7 +118,8 @@ if ($status == "SUCCESS") {
         echo '<h2><b style="color:red">Checksum Invalid!</b></h2>';
 
         if (!empty($user)) {
-            $orderId = model('deposits')->where('user_id', $user['id'])->orderBy('id')->value('unique_id');
+            $orderId = model('deposits')->where('user_id', $user['id'])
+                ->where('status', 'INITIATED')->orderBy('id')->value('unique_id');
             updateOrderAs($orderId,'FAILED');
         }
         exit;

@@ -66,7 +66,7 @@ model('deposits')->insert([
     'amount' => @$_SESSION['finalamount'], 'utr' => '', 'unique_id' => $orderId
 ]);
 
-
+$_SESSION['merchant_id'] = $merchant['id'];
 
 $checkSum = RechPayChecksum::generateSignature($paramList, $secret);
 ?>
