@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 
-include 'helpers.php';
+require_once 'autoload.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -47,7 +47,7 @@ include 'helpers.php';
 
 
 <!-- App Header -->
-<div class="appHeader1" style="background-color:lightslategray !important">
+<div class="appHeader1" style="<?php echo systemConfig('appHeader')?>">
     <div class="left">
         <a href="#" onClick="goBack();" class="icon goBack">
             <i class="icon ion-md-arrow-back"></i>
