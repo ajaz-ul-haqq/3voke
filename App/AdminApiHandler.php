@@ -70,12 +70,19 @@ class AdminApiHandler {
                 throw new \Exception($request->method(). ' method not supported');
             }
 
-            model('merchant')->where('id', 1)->update([
-                'merchant_id' => $request->get('merchant_id'),
+            $preparedData = [
                 'secret' => $request->get('secret'),
                 'token' => $request->get('token'),
                 'upi' => $request->get('upi'),
-            ]);
+                'status' => $request->get('mStatus')
+            ];
+
+            if (model('merchant')->where('merchant_id', $request->get('merchant_id'))->count()) {
+                model('merchant')->where('merchant_id', $request->get('merchant_id'))
+                    ->update($preparedData);
+            } else {
+                model('merchant')->insert($preparedData);
+            }
 
         } catch (\Exception $e) {
             self::errorResponse($e->getMessage());

@@ -121,13 +121,6 @@
                                 <p> Vouchers  </p>
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="merchants.php" class="nav-link <?php echo in_array('Merchants', $activePages) ? 'active' : '' ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p> Merchant  </p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
@@ -151,6 +144,41 @@
                             <a href="logs.php" class="nav-link <?php echo in_array('Logs', $activePages) ? 'active' : '' ?>">
                                 <i class="fas fa-book nav-icon"></i>
                                 <p> Logs  </p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview <?php echo in_array('Merchants', $activePages) ? 'menu-open' : '' ?>">
+                    <a href="#" class="nav-link <?php echo in_array('Merchants', $activePages) ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            Merchants
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="merchants.php" class="nav-link <?php echo in_array('List', $activePages) ? 'active' : '' ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p> All Merchants  </p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="add_merchant.php" class="nav-link <?php echo in_array('add_merchant', $activePages) ? 'active' : '' ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p> Add New  </p>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="merchants.php" class="nav-link <?php echo in_array('Transactions', $activePages) ? 'active' : '' ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p> Transactions  </p>
                             </a>
                         </li>
                     </ul>
