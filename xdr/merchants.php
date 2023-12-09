@@ -46,11 +46,10 @@ $merchants = $merchants->select('*')->offset($limit * ($page - 1) )->limit($limi
                 <div class="card">
                     <div class="card-body overflow-auto">
                         <div class="row">
-                            <div class="col-md-7">
-
+                            <div class="col-md-10">
                             </div>
-                            <div class="col-md-5">
-                                <a href="add_merchant.php"> <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#modal-default">
+                            <div class="col-md-2">
+                                <a href="add_merchant.php"> <button type="button" class="form-control btn btn-primary">
                                         Add New </button> </a>
                             </div>
                         </div>
@@ -62,6 +61,7 @@ $merchants = $merchants->select('*')->offset($limit * ($page - 1) )->limit($limi
                             <tr>
                                 <th>Name</th>
                                 <th>UPI</th>
+                                <th>Payments</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -69,12 +69,14 @@ $merchants = $merchants->select('*')->offset($limit * ($page - 1) )->limit($limi
                             <tbody>
                             <?php
                             foreach ($merchants as $merchant) {
+                                $collection = model('transactions')->where('merchant_id', $merchant['id'])->sum('amount');
                                 $href = "merchant_info.php?id=".$merchant['id'];
                                 $active = $merchant['status'] ? '<button class="btn btn-sm btn-primary"> Yes </button>' : '<button class="btn btn-sm btn-danger"> NO </button>';
                                 $editAction = "<span><a href='".$href."'><button class='btn btn-sm btn-light btn-outline-dark'>  View </button></a></span>";
                                 echo "<tr>
                              <td>".$merchant['name']."</td>
                              <td>".$merchant['upi']."</td>
+                             <td>".$collection."</td>
                              <td> ".$active."</td>
                              <td>".$editAction." </td>
                           </tr>";

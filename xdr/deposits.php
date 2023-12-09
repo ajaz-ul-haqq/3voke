@@ -89,7 +89,7 @@ include ('includes/sidebar.php');
                                     default => 'badge-warning'
                                 };
 
-                                echo "<tr><td>".$deposit['id']."</td><td>".clickAbleProfile($user)."</td><td>".$deposit['amount']."</td><td>".$deposit['utr']."</td>
+                                echo "<tr><td>".$deposit['unique_id']."</td><td>".clickAbleProfile($user)."</td><td>".$deposit['amount']."</td><td>".$deposit['utr']."</td>
                           <td><span class='badge ".$class." badge'>".$deposit['status']."</span></td>
                           <td>".date('j M, Y h:i:s A',strtotime($deposit['created_at']))."</td></tr>";
                             }

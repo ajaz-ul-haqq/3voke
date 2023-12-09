@@ -151,7 +151,7 @@
 
                 <li class="nav-item has-treeview <?php echo in_array('Merchants', $activePages) ? 'menu-open' : '' ?>">
                     <a href="#" class="nav-link <?php echo in_array('Merchants', $activePages) ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-cogs"></i>
+                        <i class="nav-icon fas fa-solid fa-business-time"></i>
                         <p>
                             Merchants
                             <i class="fas fa-angle-left right"></i>
@@ -176,7 +176,7 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="merchants.php" class="nav-link <?php echo in_array('Transactions', $activePages) ? 'active' : '' ?>">
+                            <a href="transactions.php" class="nav-link <?php echo in_array('Transactions', $activePages) ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p> Transactions  </p>
                             </a>

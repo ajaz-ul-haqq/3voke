@@ -76,11 +76,17 @@ class AdminApiHandler {
                 'upi' => $request->get('upi'),
                 'status' => $request->get('mStatus')
             ];
-
-            if (model('merchant')->where('merchant_id', $request->get('merchant_id'))->count()) {
+            $merchant = model('merchant')->where('merchant_id', $request->get('merchant_id'));
+            if ($merchant->count()) {
+                $old = $merchant->first();
                 model('merchant')->where('merchant_id', $request->get('merchant_id'))
                     ->update($preparedData);
+                foreach ($preparedData as $key => $value) {
+                    createLog('merchant_updated', 'Updated Merchant <b>'.$merchant['name'].'</b>, Set <b>'.ucfirst($key).'</b> as <b>'.$value.'</b> from <b>'.$merchant[$key].'</b>');
+                }
             } else {
+                $preparedData['name'] = $request->get('name');
+                $preparedData['merchant_id'] = $request->get('merchant_id');
                 model('merchant')->insert($preparedData);
             }
 

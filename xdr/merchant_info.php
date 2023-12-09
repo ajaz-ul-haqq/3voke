@@ -25,6 +25,9 @@ if (empty($merchant)) {
 
 $status = $merchant['status'];
 
+
+$collections = model('transactions')->where('merchant_id', $merchant['id'])->orderBy('id')->take(10);
+
 ?>
 
 <div class="content-wrapper">
@@ -32,78 +35,130 @@ $status = $merchant['status'];
 
 
     <section class="content">
-        <div class="container mt-3">
+        <div class="container-fluid mt-3">
             <div class="row">
-                <div class="card card-dark" style="min-width: 100%">
-                    <div class="card-header">
-                        <h3 class="card-title">Merchant details</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="mid">
-                                    <span class="bold"> Merchant ID </span>
-                                </label>
-                            </div>
-                            <div class="col-md-10">
-                                <input id="mid" class="form-control form-control-sm" type="text" name="mid" value="<?php echo $merchant['merchant_id'] ?>" disabled>
-                            </div>
+                <div class="col-md-6">
+                    <div class="card card-dark" style="min-width: 100%">
+                        <div class="card-header">
+                            <h3 class="card-title">Merchant details</h3>
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="upi">
-                                    <span class="bold"> Merchant UPI </span>
-                                </label>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="mid">
+                                        <span class="bold"> Merchant ID </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input id="mid" class="form-control form-control-sm" type="text" name="mid" value="<?php echo $merchant['merchant_id'] ?>" disabled>
+                                </div>
                             </div>
-                            <div class="col-md-10">
-                                <input id="upi" class="form-control form-control-sm" type="text" name="upi" value="<?php echo $merchant['upi'] ?>">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="upi">
+                                        <span class="bold"> Merchant UPI </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input id="upi" class="form-control form-control-sm" type="text" name="upi" value="<?php echo $merchant['upi'] ?>">
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="token">
-                                    <span class="bold"> Token </span>
-                                </label>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="token">
+                                        <span class="bold"> Token </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input id="token" class="form-control form-control-sm" type="text" name="token" value="<?php echo $merchant['token'] ?>">
+                                </div>
                             </div>
-                            <div class="col-md-10">
-                                <input id="token" class="form-control form-control-sm" type="text" name="token" value="<?php echo $merchant['token'] ?>">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="token">
+                                        <span class="bold"> Secret </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input id="secret" class="form-control form-control-sm" type="text" name="secret" value="<?php echo $merchant['secret'] ?>">
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="token">
-                                    <span class="bold"> Secret </span>
-                                </label>
-                            </div>
-                            <div class="col-md-10">
-                                <input id="secret" class="form-control form-control-sm" type="text" name="secret" value="<?php echo $merchant['secret'] ?>">
-                            </div>
-                        </div>
-                        <br>
+                            <br>
 
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="mStatus">
-                                    <span class="bold"> Status </span>
-                                </label>
-                            </div>
-                            <div class="col-md-10">
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="mStatus" <?php echo  ($status ? 'checked' : '')?> >
-                                        <label class="custom-control-label" for="mStatus"></label>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="mStatus">
+                                        <span class="bold"> Status </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="mStatus" <?php echo  ($status ? 'checked' : '')?> >
+                                            <label class="custom-control-label" for="mStatus"></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <br>
+                            <br>
 
-                        <div class="row">
-                            <button class="form-control btn btn-primary" type="button" id="saveMerchant"> Submit </button>
+                            <div class="row">
+                                <button class="form-control btn btn-primary" type="button" id="saveMerchant"> Submit </button>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card card-dark">
+                        <div class="card-header">
+                            <h3 class="card-title"> Last 10 Payments </h3>
+                        </div>
+                        <div class="card-body p-0 overflow-auto">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>User</th>
+                                    <th>OrderId</th>
+                                    <th>Amount</th>
+                                    <th>Created At</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $count = 1;
+                                foreach ($collections as $collection) {
+                                    $user = model()->find($collection['user_id']);
+                                    echo "<tr><td>".$count."</td><td>".clickAbleProfile($user)."</td><td>".($collection['order_id'])."</td>
+                                    <td>".$collection['amount']."</td><td>".date('h:i:s A',strtotime($collection['created_at']))."</td></tr>";
+
+                                    $count++;
+                                }
+
+                                if (!empty($collections)) {
+                                    echo "<tr><th colspan='5' class='text-center'><a href='transactions.php?merchant_id=".$merchant['id']."'> View All. </a></th></tr>";
+                                }
+
+                                if (empty($collections)) {
+                                    echo "<tr><td> No records found.. </td></tr>";
+                                }
+
+                                ?>
+                                </tbody>
+                                <tfoot>
+                                <?php
+                                //                    if (!empty($executions)) {
+                                //                        echo "<div class='position-absolute' style='top:100%; left: 90%'><a href='orders.php?user_id=".$id."'><btn class='btn btn-secondary btn-sm btn-block'> View All. </btn></a></div>";
+                                //                    }
+                                ?>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>

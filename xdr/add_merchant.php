@@ -28,6 +28,17 @@ include ('includes/sidebar.php');
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-2">
+                                <label for="mName">
+                                    <span class="bold"> Merchant Name </span>
+                                </label>
+                            </div>
+                            <div class="col-md-10">
+                                <input id="mName" class="form-control form-control-sm" type="text" name="mName" value="">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2">
                                 <label for="mid">
                                     <span class="bold"> Merchant ID </span>
                                 </label>
@@ -115,6 +126,7 @@ include('includes/footer.php');
 
             callApiNow({
                 merchant_id : merchantID,
+                name : document.getElementById('mName').value,
                 upi : upi,
                 token : token,
                 secret : secret,
@@ -137,9 +149,7 @@ include('includes/footer.php');
 
                 error: (error) => {
                     console.log(error)
-                    swal("Oops!", 'Something went wrong here', "error").then(() => {
-                        window.location.reload();
-                    });
+                    swal("Oops!", 'Something went wrong here', "error");
                 }
             });
         }
