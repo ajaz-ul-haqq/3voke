@@ -78,7 +78,7 @@ $collections = $transactions->select('*')->offset($limit * ($page - 1) )->limit(
                                 }
 
                                 if (empty($collections)) {
-                                    echo "<tr><td> No records found.. </td></tr>";
+                                    echo "<tr><th colspan='6' style='text-align: center'> No records found.. </th></tr>";
                                 }
 
                                 ?>

@@ -215,7 +215,7 @@ class ApiHandler {
         (new Model('vouchers'))->where('id', $voucher['id'])
             ->update(['used_by' => $userId, 'active' => 0]);
 
-        (new Model('deposits'))->insert(['user_id' => $userId,
+        (new Model('deposits'))->insert(['user_id' => $userId, 'unique_id' => uniqid().time(),
             'amount' => $voucher['amount'], 'status' => 'SUCCESS', 'utr' => 'viaGiftCard']);
 
         self::successResponse('Gift card redeemed successfully');
@@ -343,7 +343,7 @@ class ApiHandler {
             model()->where('id', $userId)->update(['balance' => $old + $requestedAmount]);
             model('deposits')->insert([
                 'user_id' => $userId, 'amount' => $requestedAmount, 'status' => 'SUCCESS',
-                'utr' => 'null', 'unique_id' => uniqid().time()
+                'utr' => 'viaBonus', 'unique_id' => uniqid().time()
             ]);
 
         } catch (\Exception $e){

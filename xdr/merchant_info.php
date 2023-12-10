@@ -144,18 +144,12 @@ $collections = model('transactions')->where('merchant_id', $merchant['id'])->ord
                                 }
 
                                 if (empty($collections)) {
-                                    echo "<tr><td> No records found.. </td></tr>";
+                                    echo "<tr><th colspan='5' style='text-align: center'> No records found.. </th></tr>";
                                 }
 
                                 ?>
                                 </tbody>
                                 <tfoot>
-                                <?php
-                                //                    if (!empty($executions)) {
-                                //                        echo "<div class='position-absolute' style='top:100%; left: 90%'><a href='orders.php?user_id=".$id."'><btn class='btn btn-secondary btn-sm btn-block'> View All. </btn></a></div>";
-                                //                    }
-                                ?>
-                                </tfoot>
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -204,7 +198,8 @@ include('includes/footer.php');
                 },
 
                 error: (error) => {
-                    console.log(error)
+                    console.log(error);
+                    alert(error.responseText);
                     swal("Oops!", 'Something went wrong here', "error").then(() => {
                         window.location.reload();
                     });

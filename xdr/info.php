@@ -60,13 +60,14 @@ $deposits = $deposits->where('user_id', $id)->where('status', 'LIKE', 'SUCCESS')
 
 $withdrawls = new \App\Models\Model('withdrawls');
 $withdrawls = $withdrawls->where('user_id', $id)
-  ->where('status', 'LIKE', 'COMPLETED')
+  ->where('status', 'LIKE', 'COMPLETED')->orderBy('id')
   ->pluck('amount')->toArray();
 
 $latestWithdrawls = (new \App\Models\Model('withdrawls'))
-  ->where('user_id', $id)->take(10);
+  ->where('user_id', $id)->orderBy('id')->take(10);
 
 $latestDeposits = (new \App\Models\Model('deposits'))
+    ->orderBy('id')
   ->where('user_id', $id)->take(10);
 
 
@@ -74,12 +75,12 @@ $referrals = new \App\Models\Model('users');
 $referrals = $referrals->where('referred_by', $id)->pluckToArray('id');
 
 $referredUsers = new \App\Models\Model('users');
-$referredUsers = $referredUsers->where('referred_by', $id)->take(10);
+$referredUsers = $referredUsers->where('referred_by', $id)->orderBy('id')->take(10);
 
 $referralDeposits = (new \App\Models\Model('deposits'))
   ->whereIn('user_id', $referrals)->pluckToArray('amount');
 
-$executions = model('orders')->where('user_id', $id)->orderBy('id', 'desc')->take(10);
+$executions = model('orders')->where('user_id', $id)->orderBy('id', 'DESC')->take(10);
 
 $totalDeposits = $totalWithdrawls = $totalReferralDeposits = 0;
 

@@ -101,12 +101,14 @@ if ($status == "SUCCESS") {
         model()->where('id', $userId)->update(['balance' => ($oldBalance + (int)$amount) ]);
         model('transactions')->insert([
             'user_id' => $userId,
-            'merchant_id' => @$_SESSION['merchant_id'],
+            'merchant_id' => model('merchant')->where('upi', $payeeVpa)->value('id'),
             'order_id' => $orderId,
             'deposit_id' => $deposit['id'],
             'amount' => $deposit['amount'],
             'status' => 'SUCCESS'
         ]);
+
+        die('');
 
         header('Location:'.$redirectTo);
 

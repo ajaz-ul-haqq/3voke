@@ -1,0 +1,8 @@
+[2023-12-10 22:05:58] (UPDATE users SET `name` = 'Ajaz Ul Haq ' WHERE id = "2")
+[2023-12-10 22:11:55] (UPDATE users SET `name` = 'Ajaz Ul Haq ' WHERE id = "2")
+[2023-12-10 22:45:27] (UPDATE users SET `balance` = '4626' WHERE id = "2")
+[2023-12-10 22:45:27] (UPDATE vouchers SET `used_by` = '2', `active` = '0' WHERE id = "4")
+[2023-12-10 22:45:27] (INSERT INTO deposits (user_id, unique_id, amount, status, utr) VALUES("2", "6575f22f37e1e1702228527", "3000", "SUCCESS", "viaGiftCard");)
+[2023-12-10 22:53:25] (INSERT INTO redemption (user_id, amount) VALUES("2", "3000");)
+[2023-12-10 22:53:25] (UPDATE users SET `balance` = '7626' WHERE id = "2")
+[2023-12-10 22:53:25] (INSERT INTO deposits (user_id, amount, status, utr, unique_id) VALUES("2", "3000", "SUCCESS", "viaBonus", "6575f40db87871702229005");)

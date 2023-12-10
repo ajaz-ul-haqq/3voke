@@ -70,6 +70,8 @@ class AdminApiHandler {
                 throw new \Exception($request->method(). ' method not supported');
             }
 
+            $shouldLog = false;
+
             $preparedData = [
                 'secret' => $request->get('secret'),
                 'token' => $request->get('token'),
@@ -78,17 +80,31 @@ class AdminApiHandler {
             ];
             $merchant = model('merchant')->where('merchant_id', $request->get('merchant_id'));
             if ($merchant->count()) {
-                $old = $merchant->first();
+                $old = model('merchant')->where('merchant_id', $request->get('merchant_id'))->first();
                 model('merchant')->where('merchant_id', $request->get('merchant_id'))
                     ->update($preparedData);
+
+                $merchant = model('merchant')->where('merchant_id', $request->get('merchant_id'))->first();
+                $context = 'Updated Merchant <b>'.$merchant['name'].'</b>, ';
                 foreach ($preparedData as $key => $value) {
-                    createLog('merchant_updated', 'Updated Merchant <b>'.$merchant['name'].'</b>, Set <b>'.ucfirst($key).'</b> as <b>'.$value.'</b> from <b>'.$merchant[$key].'</b>');
+                    if($value != $old[$key]){
+                        $shouldLog = true;
+                        $context = $context.'Set <b>'.ucfirst($key).'</b> as <b>'.$value.'</b> from <b>'.$old[$key].'</b>, ';
+                    }
                 }
             } else {
                 $preparedData['name'] = $request->get('name');
                 $preparedData['merchant_id'] = $request->get('merchant_id');
                 model('merchant')->insert($preparedData);
+                $context = 'Created New Merchant <b>'.$merchant['name'].'</b>, ';
+                foreach ($preparedData as $key => $value) {
+                    $shouldLog = true;
+                    $context = $context.'Set <b>'.ucfirst($key).'</b> as <b>'.$value.'</b>, ';
+                }
             }
+
+
+            !$shouldLog ? : createLog('merchant_actions', rtrim($context, ', '));
 
         } catch (\Exception $e) {
             self::errorResponse($e->getMessage());
