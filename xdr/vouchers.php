@@ -92,7 +92,7 @@ include ('includes/sidebar.php');
                                 foreach ($vouchers as $voucher) {
                                     $user = $voucher['used_by'] ? model()->where('id', $voucher['used_by'])->first() : [];
 
-                                    $creator = $voucher['created_by'] ? model('admins')->find($voucher['created_by'])['phone'] : 'script' ;
+                                    $creator = $voucher['created_by'] > 0 ? model('admins')->find($voucher['created_by'])['phone'] : '3vokeBot' ;
 
                                     $profile = !empty($user) ? '<a href="info.php?id='.$user['id'].'">'.$user['phone'].'</a>' : '---';
                                     $active = $voucher['active'] ? '<button class="btn btn-sm btn-primary"> Active </button>' : '<button class="btn btn-sm btn-danger"> InActive </button>';
