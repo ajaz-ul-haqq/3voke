@@ -1,8 +1,0 @@
-[2023-12-10 22:06:04] (INSERT INTO deposits (user_id, status, amount, utr, unique_id) VALUES("2", "INITIATED", "2", "", "6575e8f42b1331702226164");)
-[2023-12-10 22:06:38] (UPDATE deposits SET `status` = 'SUCCESS', `utr` = '229479292729' WHERE unique_id = "6575e8f42b1331702226164")
-[2023-12-10 22:06:38] (UPDATE users SET `balance` = '1616' WHERE id = "2")
-[2023-12-10 22:06:38] (INSERT INTO transactions (user_id, merchant_id, order_id, deposit_id, amount, status) VALUES("2", "", "6575e8f42b1331702226164", "73", "2", "SUCCESS");)
-[2023-12-10 22:11:57] (INSERT INTO deposits (user_id, status, amount, utr, unique_id) VALUES("2", "INITIATED", "10", "", "6575ea55dcba71702226517");)
-[2023-12-10 22:12:21] (UPDATE deposits SET `status` = 'SUCCESS', `utr` = '229479647677' WHERE unique_id = "6575ea55dcba71702226517")
-[2023-12-10 22:12:21] (UPDATE users SET `balance` = '1626' WHERE id = "2")
-[2023-12-10 22:12:21] (INSERT INTO transactions (user_id, merchant_id, order_id, deposit_id, amount, status) VALUES("2", "1", "6575ea55dcba71702226517", "74", "10", "SUCCESS");)

@@ -72,7 +72,7 @@ include ('includes/sidebar.php');
                                 <th>Id</th>
                                 <th>User</th>
                                 <th>Amount</th>
-                                <th>Method</th>
+                                <th>Method/UTR</th>
                                 <th>Status</th>
                                 <th>Time</th>
                             </tr>

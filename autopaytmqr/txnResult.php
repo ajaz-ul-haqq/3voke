@@ -3,7 +3,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-session_start();
 require_once '../autoload.php';
 require_once('config.php');
 require_once('checksum.php');
@@ -107,8 +106,6 @@ if ($status == "SUCCESS") {
             'amount' => $deposit['amount'],
             'status' => 'SUCCESS'
         ]);
-
-        die('');
 
         header('Location:'.$redirectTo);
 

@@ -25,7 +25,7 @@ $cust_Mobile = $mobile;          //cust mobile
 $cust_Email = $email;     //cust email
 $orderId = uniqid().time();  //orderid
 $txnAmount = $finalAmount;                     //amount
-$txnNote = $userid;                  //special note
+$txnNote = systemConfig('title'). ' payment for orderId '.$orderId;                  //special note
 $callback_url = APP_URL."autopaytmqr/txnResult.php";  //callback
 
 if ($gateway_type == "Robotics") {
@@ -65,8 +65,6 @@ model('deposits')->insert([
     'user_id' => @$_SESSION['user']['id'], 'status' => 'INITIATED',
     'amount' => @$_SESSION['finalamount'], 'utr' => '', 'unique_id' => $orderId
 ]);
-
-$_SESSION['merchant_id'] = $merchant['id'];
 
 $checkSum = RechPayChecksum::generateSignature($paramList, $secret);
 ?>
