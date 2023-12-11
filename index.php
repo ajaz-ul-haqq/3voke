@@ -162,9 +162,8 @@ $userid = $_SESSION['user']['id'];
                         <a href="recharge.php" class="btn btn-sm btn-primary m-0">Recharge</a>
                         <a href="withdrawl.php" class="btn btn-sm  btn-info btn-default ml-1 m-0">Withdraw</a>
 
-                        <a href="javascript:void(0);" onClick="getResultbyCategory(
-                            document.getElementById('activeCategory').value, document.getElementById('activeCategory').value)"
-                           class="reaload text-white pull-right mt-1" onclick="">
+                        <a href="javascript:void(0);" onClick="reloadAllData()"
+                           class="reaload text-white pull-right mt-1">
                             <i class="icon ion-md-refresh"></i></a> </div>
                 </div>
             </div>
@@ -490,6 +489,13 @@ $userid = $_SESSION['user']['id'];
             $(".gbutton").prop('disabled', distance <= 30 )
         }
 
+        function reloadAllData() {
+            const activeCategory = document.getElementById('activeCategory').value;
+            getResultbyCategory(activeCategory, activeCategory);
+
+            getUserOrder(1, activeCategory)
+        }
+
         function generateGameid() {
             $.ajax({
                 type: "GET",
@@ -600,6 +606,7 @@ $userid = $_SESSION['user']['id'];
                 },
                 url: "universal.php",
                 success: function (response) {
+                    document.getElementById('myOrdersDataTable').innerHTML = '';
                     document.getElementById('myOrdersDataTable').innerHTML = response.orders;
                     successHandler();
                     return false;
