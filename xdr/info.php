@@ -161,6 +161,17 @@ include ('includes/sidebar.php');
                       </span>
                     </td>
                   </tr>
+
+
+                  <tr>
+                      <td>5. </td>
+                      <td>Referred By </td>
+                      <td colspan="2">
+                        <?php
+                        $ref = model()->where('id', $user['referred_by'])->first();
+                        echo !empty($ref) ? clickAbleProfile($ref) : '---'; ?>
+                      </td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
