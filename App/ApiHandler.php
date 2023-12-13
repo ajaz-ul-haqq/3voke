@@ -314,10 +314,13 @@ class ApiHandler {
                     ->where('status', 'SUCCESS')->first();
                 $amount = !empty($deposit) ? $deposit['amount'] : 0 ;
 
-                if ($amount) {
-                    $x = model('orders')->where('user_id', $ref['id'])->sum('amount');
-                    !($x >= 2 * $amount) ? : $applicableAmount = $applicableAmount + ( $amount * 0.4 );
-                }
+//                if ($amount) {
+//                    $x = model('orders')->where('user_id', $ref['id'])->sum('amount');
+//                    !($x >= 2 * $amount) ? : $applicableAmount = $applicableAmount + ( $amount * 0.4 );
+//                }
+
+                $applicableAmount = $applicableAmount + ( $amount * 0.4 );
+
             }
 
             $applicableAmount = $applicableAmount - ( model('redemption')->where('user_id', $userId)->value('amount'));

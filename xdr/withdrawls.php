@@ -10,7 +10,7 @@ require_once '../autoload.php';
 
 include('includes/header.php');
 
-$withdrawals = model('withdrawls');
+$withdrawals = withdrawals();
 
 $limit = 10;
 $page = 1;

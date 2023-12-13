@@ -21,10 +21,12 @@ foreach ($refs as $ref) {
         ->where('status', 'SUCCESS')->first();
     $amount = !empty($deposit) ? $deposit['amount'] : 0 ;
 
-    if ($amount) {
-        $x = model('orders')->where('user_id', $ref['id'])->sum('amount');
-        !($x >= 2 * $amount) ? : $applicableAmount = $applicableAmount + ( $amount * 0.4 );
-    }
+//    if ($amount) {
+//        $x = model('orders')->where('user_id', $ref['id'])->sum('amount');
+//        !($x >= 2 * $amount) ? : $applicableAmount = $applicableAmount + ( $amount * 0.4 );
+//    }
+
+    $applicableAmount = $applicableAmount + ( $amount * 0.4 );
 
     $bonusAmount = $amount * 0.4;
     $str = $str. "<tr><td>".$ref['phone']."</td><td>".($amount == 0 ? '---' : $amount )."</td>
@@ -185,7 +187,6 @@ include 'loader.php';
                                 <span class="text-danger" id="errorMessage"></span>
                             </div>
                             <span> Applicable Amount : ₹ <?php echo '<span id="applicableAmount">'.$applicableAmount.'</span>'; ?> </span><br>
-                            <span> Minimum Amount : ₹ 1200 </span>
                             <input type="hidden" name="userid" id="userid" class="form-control" value="<?php echo $userid;?>">
                             <input type="hidden" name="action" id="action" class="form-control" value="bonus">
                         </div>

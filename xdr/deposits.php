@@ -15,7 +15,7 @@ $page = 1;
 $orderBy = 'id';
 $sortOrder = 'DESC';
 $baseUrl = 'deposits.php?';
-$deposits = model('deposits');
+$deposits = deposits();
 
 if (isset($_REQUEST['limit'])) {
     $limit = $_REQUEST['limit'];

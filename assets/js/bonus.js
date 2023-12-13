@@ -10,7 +10,7 @@ $().ready(function() {
 			bonusammount: {
 				required: true,
 				number: true,
-				min: 1200,
+				min: 120,
 				max : applicableAmount,
 			},
 		},
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 		const amount = $('input#bonusammount').val();
 
-		if (amount < 1200) {
+		if (amount < 120) {
 			$("input#bonusammount").focus();
 			$('#userammount').addClass('borderline');
 			return false;

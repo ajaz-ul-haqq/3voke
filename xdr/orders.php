@@ -22,7 +22,7 @@ if (isset($_REQUEST['page'])) {
     $page = $_REQUEST['page'];
 }
 
-$executions = model('orders');
+$executions = orders();
 
 if(isset($_REQUEST['user_id'])) {
     $executions->where('user_id', $_REQUEST['user_id']);
