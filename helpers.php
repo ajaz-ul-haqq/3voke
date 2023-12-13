@@ -176,3 +176,31 @@ function createLog($event, $context, $to = '' , $from = '')
         'session_id' => @$_SESSION['unique_id']
     ]);
 }
+
+function users(): Model
+{
+    return model()->where('is_agent', 0);
+}
+
+function withdrawals(): Model
+{
+    return model('withdrawls')->whereIn('user_id',
+        genuineUsers()->pluckToArray('id'));
+}
+
+function deposits(): Model
+{
+    return model('deposits')->whereIn('user_id',
+        genuineUsers()->pluckToArray('id'));
+}
+
+function orders(): Model
+{
+    return model('orders')->whereIn('user_id',
+        genuineUsers()->pluckToArray('id'));
+}
+
+function genuineUsers(): Model
+{
+    return model()->where('is_agent', 0);
+}

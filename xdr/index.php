@@ -11,15 +11,15 @@ $loggedInUser = $_SESSION['admin'];
 
 $startOftheDay = (date('Y-m-d').':00:00:00');
 
-$totalActiveUsers = model()->where('active', 1)->count();
-$totalWithdrawals = model('withdrawls')->whereIn('status', ['"APPROVED"','"COMPLETED"']);
-$totalDeposits = model('deposits')->where('status', 'success');
-$totalOrders = model('orders');
+$totalActiveUsers = users()->where('active', 1)->count();
+$totalWithdrawals = withdrawals()->whereIn('status', ['"APPROVED"','"COMPLETED"']);
+$totalDeposits = deposits()->where('status', 'success');
+$totalOrders = orders();
 
-$todaysUsers = model()->where('created_at', '>', $startOftheDay);
-$withdrawals = model('withdrawls')->where('status', 'INITIATED');
-$deposits = model('deposits')->where('status', 'success')->where('created_at','>',$startOftheDay);
-$orders = model('orders')->where('game_id',  '>', (int) (date("Ymd") . '001'));
+$todaysUsers = users()->where('created_at', '>', $startOftheDay);
+$withdrawals = withdrawals()->where('status', 'INITIATED');
+$deposits = deposits()->where('status', 'success')->where('created_at','>',$startOftheDay);
+$orders = orders()->where('game_id',  '>', (int) (date("Ymd") . '001'));
 
 include ('includes/navbar.php');
 include ('includes/sidebar.php');
