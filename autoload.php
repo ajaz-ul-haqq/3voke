@@ -7,7 +7,7 @@ const DB_HOST = 'localhost';
 const DB_USER = 'root';
 const DB_PASS = 9090;
 const DB_NAME = 'next';
-const GATEWAY_HANDLER = 'https://axom.cloud/order/paytm';
+const GATEWAY_HANDLER = 'https://faveo.local/evoke/pg/order/paytm';
 
 function customAutoloader($className): void
 {

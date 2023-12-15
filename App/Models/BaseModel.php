@@ -3,7 +3,7 @@
 namespace App\Models;
 
 class BaseModel {
-    protected $conn = null;
+    public $conn = null;
 
     protected $table = '';
 
